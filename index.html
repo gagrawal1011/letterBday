@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
 
 <title>For Panda 🐼❤️</title>
 
@@ -21,81 +19,60 @@
 
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
     margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
 }
 
 body {
-
     overflow: hidden;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #5b1720 0%,
-            #26070c 55%,
-            #100205 100%
-        );
-
+    font-family: Georgia, "Times New Roman", serif;
+    background: #180408;
 }
 
 
 /* =========================================================
-   BACKGROUND
+   FIXED BACKGROUND
    ========================================================= */
 
 .background {
-
     position: fixed;
-
     inset: 0;
-
     z-index: 0;
 
     background:
         radial-gradient(
             circle at 50% 35%,
-            rgba(150,20,40,.45),
+            rgba(160, 20, 45, .42),
             transparent 55%
         ),
-
         linear-gradient(
             135deg,
             #350811,
-            #170308 50%,
-            #3c0b14
+            #160307 50%,
+            #3d0b15
         );
 
     pointer-events: none;
-
 }
 
-
 .background::after {
-
     content: "";
-
     position: absolute;
-
     inset: 0;
 
     background:
         radial-gradient(
             circle at center,
             transparent 25%,
-            rgba(0,0,0,.35) 100%
+            rgba(0,0,0,.38) 100%
         );
-
 }
 
 
@@ -104,27 +81,20 @@ body {
    ========================================================= */
 
 .envelope-scene {
-
     position: fixed;
-
     inset: 0;
 
     z-index: 10;
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
-    isolation: isolate;
 
     overflow: hidden;
 
     transition:
         opacity 1s ease,
         transform 1s ease;
-
 }
 
 
@@ -133,110 +103,53 @@ body {
    ========================================================= */
 
 .envelope-area {
-
     position: relative;
 
-    width:
-        min(
-            560px,
-            84vw
-        );
-
+    width: min(560px, 84vw);
     aspect-ratio: 1.55;
-
-    isolation: isolate;
-
 }
 
 
 /* =========================================================
-   ENVELOPE
+   ENVELOPE CARD
    ========================================================= */
 
-.envelope {
-
+.envelope-card {
     position: absolute;
-
     inset: 0;
 
+    border-radius: 9px;
+
+    box-shadow:
+        0 35px 80px rgba(0,0,0,.65);
+
+    overflow: hidden;
+
     /*
-       The important part:
-
-       The transform is isolated ONLY
-       to this element.
+       NO 3D.
+       NO rotateY.
+       NO perspective.
     */
-
-    transform-style: preserve-3d;
 
     transform-origin: center center;
 
     transition:
-        transform
-        1.35s
-        cubic-bezier(
-            .77,
-            0,
-            .18,
-            1
-        );
-
+        transform 1.15s cubic-bezier(.77,0,.18,1),
+        opacity .9s ease;
 }
 
 
 /* =========================================================
-   ENVELOPE TURN
-   ========================================================= */
-
-.envelope.turn {
-
-    transform:
-        rotateY(180deg);
-
-}
-
-
-/* =========================================================
-   ENVELOPE FRONT / BACK
-   ========================================================= */
-
-.envelope-front,
-.envelope-back {
-
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    border-radius: 9px;
-
-    backface-visibility: hidden;
-
-    -webkit-backface-visibility: hidden;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 35px 80px
-        rgba(0,0,0,.65);
-
-}
-
-
-/* =========================================================
-   ENVELOPE FRONT
+   FRONT
    ========================================================= */
 
 .envelope-front {
+    position: absolute;
+    inset: 0;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
 
     text-align: center;
@@ -244,50 +157,40 @@ body {
     padding: 40px;
 
     background:
-
         linear-gradient(
             145deg,
             #8e0915,
             #d51c2c 50%,
             #760610
         );
-
 }
 
 
 /* Highlight */
 
 .envelope-front::before {
-
     content: "";
-
     position: absolute;
-
     inset: 0;
 
     background:
-
         radial-gradient(
             circle at 50% 20%,
             rgba(255,255,255,.16),
             transparent 55%
         );
-
 }
 
 
 /* Envelope folds */
 
 .envelope-front::after {
-
     content: "";
 
     position: absolute;
 
     left: 0;
-
     right: 0;
-
     bottom: 0;
 
     height: 58%;
@@ -307,7 +210,6 @@ body {
             rgba(70,0,8,.40) 50%,
             transparent 50.5%
         );
-
 }
 
 
@@ -316,15 +218,12 @@ body {
    ========================================================= */
 
 .front-small {
-
     position: relative;
-
     z-index: 5;
 
     margin-bottom: 18px;
 
     font-size: 12px;
-
     letter-spacing: 4px;
 
     text-transform: uppercase;
@@ -332,14 +231,11 @@ body {
     color: white;
 
     opacity: .78;
-
 }
 
 
 .front-title {
-
     position: relative;
-
     z-index: 5;
 
     color: white;
@@ -356,25 +252,18 @@ body {
     font-weight: 500;
 
     text-shadow:
-        0 5px 25px
-        rgba(0,0,0,.35);
-
+        0 5px 25px rgba(0,0,0,.35);
 }
 
 
 .front-title span {
-
     color: #ffd0d0;
-
     font-style: italic;
-
 }
 
 
 .front-name {
-
     position: relative;
-
     z-index: 5;
 
     margin-top: 18px;
@@ -387,28 +276,27 @@ body {
             3vw,
             24px
         );
-
 }
 
 
 .panda {
-
     font-size: 28px;
-
 }
 
 
 /* =========================================================
-   ENVELOPE BACK
+   BACK
    ========================================================= */
 
 .envelope-back {
+    position: absolute;
+    inset: 0;
 
-    transform:
-        rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     background:
-
         linear-gradient(
             145deg,
             #8c0915,
@@ -416,17 +304,27 @@ body {
             #750610
         );
 
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform:
+        scaleX(.08);
+
+    transform-origin: center;
+
+    transition:
+        transform 1s cubic-bezier(.77,0,.18,1),
+        opacity .45s ease;
 }
 
 
-/* Envelope back folds */
+/* Back folds */
 
 .envelope-back::before {
-
     content: "";
 
     position: absolute;
-
     inset: 0;
 
     background:
@@ -444,20 +342,119 @@ body {
             rgba(70,0,8,.38) 50%,
             transparent 50.5%
         );
-
 }
 
 
 /* =========================================================
-   TURN BUTTON
+   TURN ANIMATION
+   ========================================================= */
+
+/*
+   Step 1:
+   Front folds toward the middle.
+*/
+
+.envelope-card.turning .envelope-front {
+    animation:
+        frontFold
+        1.15s
+        cubic-bezier(.77,0,.18,1)
+        forwards;
+}
+
+
+@keyframes frontFold {
+
+    0% {
+        transform:
+            scaleX(1)
+            translateX(0);
+
+        opacity: 1;
+    }
+
+    35% {
+        transform:
+            scaleX(.48)
+            translateX(-3%);
+
+        opacity: 1;
+    }
+
+    55% {
+        transform:
+            scaleX(.06)
+            translateX(-5%);
+
+        opacity: 0;
+    }
+
+    100% {
+        transform:
+            scaleX(.06)
+            translateX(-5%);
+
+        opacity: 0;
+    }
+}
+
+
+/*
+   Step 2:
+   Back expands from the middle.
+*/
+
+.envelope-card.turning .envelope-back {
+
+    animation:
+        backReveal
+        1.15s
+        .35s
+        cubic-bezier(.77,0,.18,1)
+        forwards;
+}
+
+
+@keyframes backReveal {
+
+    0% {
+        transform:
+            scaleX(.06);
+
+        opacity: 0;
+    }
+
+    40% {
+        transform:
+            scaleX(.48);
+
+        opacity: 0;
+    }
+
+    65% {
+        transform:
+            scaleX(.82);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            scaleX(1);
+
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   TURN INSTRUCTION
    ========================================================= */
 
 .turn-instruction {
-
     position: absolute;
 
     left: 50%;
-
     bottom: -78px;
 
     z-index: 100;
@@ -471,12 +468,10 @@ body {
 
     transition:
         opacity .5s ease;
-
 }
 
 
 .turn-button {
-
     border: none;
 
     background: transparent;
@@ -492,21 +487,16 @@ body {
 
     cursor: pointer;
 
-    padding:
-        10px 20px;
-
+    padding: 10px 20px;
 }
 
 
-.turn-button:hover {
-
-    color: white;
-
+.turn-button:active {
+    transform: scale(.96);
 }
 
 
 .turn-arrow {
-
     display: block;
 
     margin-bottom: 4px;
@@ -517,7 +507,6 @@ body {
         bounce
         1.8s
         infinite;
-
 }
 
 
@@ -526,11 +515,9 @@ body {
    ========================================================= */
 
 .open-button-layer {
-
     position: absolute;
 
     left: 50%;
-
     top: 50%;
 
     z-index: 200;
@@ -544,21 +531,16 @@ body {
 
     transition:
         opacity .5s ease;
-
 }
 
 
 .open-button-layer.visible {
-
     opacity: 1;
-
     pointer-events: auto;
-
 }
 
 
 .open-button {
-
     border:
         1px solid
         rgba(255,255,255,.85);
@@ -572,12 +554,6 @@ body {
 
     background:
         rgba(255,255,255,.17);
-
-    backdrop-filter:
-        blur(12px);
-
-    -webkit-backdrop-filter:
-        blur(12px);
 
     color: white;
 
@@ -598,31 +574,26 @@ body {
     transition:
         transform .25s ease,
         background .25s ease;
-
 }
 
 
 .open-button:hover {
-
     background:
         rgba(255,255,255,.32);
 
     transform:
         scale(1.07);
-
 }
 
 
 .open-button:active {
-
     transform:
         scale(.95);
-
 }
 
 
 /* =========================================================
-   ENVELOPE DISAPPEARS
+   ENVELOPE LEAVES
    ========================================================= */
 
 .envelope-scene.opening {
@@ -634,7 +605,6 @@ body {
         translateY(30px);
 
     pointer-events: none;
-
 }
 
 
@@ -643,9 +613,7 @@ body {
    ========================================================= */
 
 .paper-scene {
-
     position: fixed;
-
     inset: 0;
 
     z-index: 30;
@@ -653,11 +621,9 @@ body {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     pointer-events: none;
-
 }
 
 
@@ -666,7 +632,6 @@ body {
    ========================================================= */
 
 .paper {
-
     position: relative;
 
     width:
@@ -684,7 +649,6 @@ body {
     overflow: hidden;
 
     background:
-
         linear-gradient(
             145deg,
             #fffdf2,
@@ -698,7 +662,6 @@ body {
     opacity: 0;
 
     transform:
-
         translateY(180px)
         scaleY(.05);
 
@@ -706,7 +669,6 @@ body {
         bottom center;
 
     pointer-events: auto;
-
 }
 
 
@@ -722,30 +684,25 @@ body {
             1
         )
         forwards;
-
 }
 
 
 @keyframes paperUnfold {
 
     0% {
-
         opacity: 0;
 
         transform:
             translateY(180px)
             scaleY(.05);
-
     }
 
     30% {
-
         opacity: 1;
 
         transform:
             translateY(90px)
             scaleY(.25);
-
     }
 
     60% {
@@ -753,7 +710,6 @@ body {
         transform:
             translateY(35px)
             scaleY(.70);
-
     }
 
     100% {
@@ -763,9 +719,7 @@ body {
         transform:
             translateY(0)
             scaleY(1);
-
     }
-
 }
 
 
@@ -774,7 +728,6 @@ body {
    ========================================================= */
 
 .paper::before {
-
     content: "";
 
     position: absolute;
@@ -788,12 +741,11 @@ body {
         rgba(110,70,45,.18);
 
     pointer-events: none;
-
 }
 
 
 /* =========================================================
-   PAPER CONTENT
+   PAPER CONTENT / SCROLL
    ========================================================= */
 
 .paper-content {
@@ -803,11 +755,9 @@ body {
     z-index: 5;
 
     width: 100%;
-
     height: 100%;
 
     overflow-y: auto;
-
     overflow-x: hidden;
 
     padding:
@@ -824,43 +774,31 @@ body {
     -webkit-overflow-scrolling:
         touch;
 
-    scrollbar-width:
-        thin;
-
+    scrollbar-width: thin;
 }
 
 
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
-
 .paper-content::-webkit-scrollbar {
-
     width: 6px;
-
 }
 
 
 .paper-content::-webkit-scrollbar-track {
-
     background:
         rgba(120,70,45,.08);
-
 }
 
 
 .paper-content::-webkit-scrollbar-thumb {
-
     background:
         rgba(120,70,45,.35);
 
     border-radius: 10px;
-
 }
 
 
 /* =========================================================
-   LETTER HEADER
+   HEADER
    ========================================================= */
 
 .letter-header {
@@ -870,7 +808,6 @@ body {
     margin-bottom: 38px;
 
     opacity: 0;
-
 }
 
 
@@ -882,7 +819,6 @@ body {
         1s
         .2s
         forwards;
-
 }
 
 
@@ -900,7 +836,6 @@ body {
         #8c5746;
 
     margin-bottom: 12px;
-
 }
 
 
@@ -921,7 +856,6 @@ body {
     font-style: italic;
 
     font-weight: 500;
-
 }
 
 
@@ -933,7 +867,6 @@ body {
 
     color:
         #765045;
-
 }
 
 
@@ -952,7 +885,6 @@ body {
     margin: auto;
 
     font-family:
-
         "Segoe Print",
         "Bradley Hand",
         "Comic Sans MS",
@@ -970,7 +902,6 @@ body {
 
     letter-spacing:
         .05px;
-
 }
 
 
@@ -979,7 +910,6 @@ body {
     margin-bottom: 24px;
 
     visibility: hidden;
-
 }
 
 
@@ -1008,7 +938,6 @@ body {
         cursorBlink
         .7s
         infinite;
-
 }
 
 
@@ -1024,7 +953,6 @@ body {
         #801d2a;
 
     font-size: 20px;
-
 }
 
 
@@ -1041,7 +969,6 @@ body {
     text-align: right;
 
     font-family:
-
         "Segoe Print",
         "Bradley Hand",
         cursive;
@@ -1054,7 +981,6 @@ body {
         #801d2a;
 
     opacity: 0;
-
 }
 
 
@@ -1064,7 +990,6 @@ body {
         fadeUp
         1.2s
         forwards;
-
 }
 
 
@@ -1085,27 +1010,22 @@ body {
         5s
         linear
         forwards;
-
 }
 
 
 @keyframes floatHeart {
 
     0% {
-
         opacity: 0;
 
         transform:
             translateY(30px)
             scale(.5)
             rotate(0deg);
-
     }
 
     15% {
-
         opacity: 1;
-
     }
 
     100% {
@@ -1116,9 +1036,7 @@ body {
             translateY(-100vh)
             scale(1.3)
             rotate(25deg);
-
     }
-
 }
 
 
@@ -1129,23 +1047,18 @@ body {
 @keyframes fadeUp {
 
     from {
-
         opacity: 0;
 
         transform:
             translateY(25px);
-
     }
 
     to {
-
         opacity: 1;
 
         transform:
             translateY(0);
-
     }
-
 }
 
 
@@ -1153,19 +1066,14 @@ body {
 
     0%,
     100% {
-
         transform:
             translateY(0);
-
     }
 
     50% {
-
         transform:
             translateY(7px);
-
     }
-
 }
 
 
@@ -1173,18 +1081,13 @@ body {
 
     0%,
     45% {
-
         opacity: 1;
-
     }
 
     46%,
     100% {
-
         opacity: 0;
-
     }
-
 }
 
 
@@ -1194,149 +1097,73 @@ body {
 
 @media (max-width: 600px) {
 
-    /*
-       IMPORTANT:
-
-       Nothing here transforms the page,
-       background or envelope scene.
-
-       Only .envelope itself rotates.
-    */
-
     .envelope-scene {
-
         transform: none !important;
-
     }
-
-
-    .background {
-
-        transform: none !important;
-
-    }
-
 
     .envelope-area {
-
         transform: none !important;
-
-        perspective: none;
-
     }
 
+    /*
+       The envelope is now completely 2D.
+       Nothing rotates the page.
+    */
 
-    .envelope {
-
-        transform-style: preserve-3d;
-
+    .envelope-card {
+        transform: none !important;
     }
-
-
-    .envelope.turn {
-
-        transform:
-            rotateY(180deg);
-
-    }
-
-
-    .envelope-front,
-    .envelope-back {
-
-        transform-style: flat;
-
-    }
-
 
     .envelope-front {
-
         padding: 25px;
-
     }
-
 
     .front-small {
-
         font-size: 9px;
-
         letter-spacing: 2px;
-
     }
-
 
     .front-title {
-
         font-size: 28px;
-
     }
-
 
     .front-name {
-
         font-size: 16px;
-
     }
-
 
     .turn-instruction {
-
         bottom: -70px;
-
     }
-
 
     .turn-button {
-
         font-size: 13px;
-
     }
-
 
     .paper {
-
         width: 94vw;
-
         height: 90vh;
-
     }
-
 
     .paper-content {
-
         padding:
             40px 25px;
-
     }
-
 
     .writeup {
-
         font-size: 16px;
-
         line-height: 1.82;
-
     }
-
 
     .letter-header h1 {
-
         font-size: 34px;
-
     }
-
 
     .letter-header p {
-
         font-size: 13px;
-
     }
 
-
     .signature {
-
         font-size: 20px;
-
     }
 
 }
@@ -1357,7 +1184,7 @@ body {
 
 
 <!-- =====================================================
-     ENVELOPE
+     ENVELOPE SCENE
      ===================================================== -->
 
 <div
@@ -1371,12 +1198,12 @@ body {
 
 
         <!-- =============================================
-             ENVELOPE
+             ENVELOPE CARD
              ============================================= -->
 
         <div
-            class="envelope"
-            id="envelope"
+            class="envelope-card"
+            id="envelopeCard"
         >
 
 
@@ -1436,14 +1263,17 @@ body {
 
             <div
                 class="envelope-back"
-            ></div>
+                id="envelopeBack"
+            >
+
+            </div>
 
 
         </div>
 
 
         <!-- =============================================
-             TURN INSTRUCTION
+             TURN BUTTON
              ============================================= -->
 
         <div
@@ -1504,7 +1334,6 @@ body {
 
 <div
     class="paper-scene"
-    id="paperScene"
 >
 
     <div
@@ -1514,7 +1343,6 @@ body {
 
         <div
             class="paper-content"
-            id="paperContent"
         >
 
 
@@ -1558,7 +1386,6 @@ body {
 
             <div
                 class="writeup"
-                id="writeup"
             >
 
 
@@ -1772,9 +1599,9 @@ And I love you.
    ELEMENTS
    ========================================================= */
 
-const envelope =
+const envelopeCard =
     document.getElementById(
-        "envelope"
+        "envelopeCard"
     );
 
 const turnButton =
@@ -1832,24 +1659,25 @@ turnButton.addEventListener(
     function(event) {
 
         event.preventDefault();
-
         event.stopPropagation();
 
-
         if (envelopeTurned) {
-
             return;
-
         }
-
 
         envelopeTurned = true;
 
+        /*
+           Start the 2D paper-turn animation.
+        */
 
-        envelope.classList.add(
-            "turn"
+        envelopeCard.classList.add(
+            "turning"
         );
 
+        /*
+           Hide the instruction.
+        */
 
         turnInstruction.style.opacity =
             "0";
@@ -1857,6 +1685,10 @@ turnButton.addEventListener(
         turnInstruction.style.pointerEvents =
             "none";
 
+
+        /*
+           Wait until the back is visible.
+        */
 
         setTimeout(
             function() {
@@ -1866,7 +1698,7 @@ turnButton.addEventListener(
                 );
 
             },
-            1100
+            1500
         );
 
     }
@@ -1882,39 +1714,34 @@ openButton.addEventListener(
     function(event) {
 
         event.preventDefault();
-
         event.stopPropagation();
 
-
         if (!envelopeTurned) {
-
             return;
-
         }
-
 
         if (envelopeOpened) {
-
             return;
-
         }
-
 
         envelopeOpened = true;
 
 
+        /*
+           Hide OPEN button.
+        */
+
         openButtonLayer.classList.remove(
             "visible"
         );
-
 
         openButtonLayer.style.pointerEvents =
             "none";
 
 
         /*
-         * Envelope leaves the screen.
-         */
+           Envelope leaves.
+        */
 
         envelopeScene.classList.add(
             "opening"
@@ -1922,8 +1749,8 @@ openButton.addEventListener(
 
 
         /*
-         * Paper unfolds.
-         */
+           Unfold letter.
+        */
 
         setTimeout(
             function() {
@@ -1938,8 +1765,9 @@ openButton.addEventListener(
 
 
         /*
-         * Start writing.
-         */
+           Start writing after paper
+           has unfolded.
+        */
 
         setTimeout(
             function() {
@@ -1948,9 +1776,7 @@ openButton.addEventListener(
                     "writing"
                 );
 
-
                 startWriting();
-
 
                 createHearts();
 
@@ -1981,11 +1807,15 @@ async function startWriting() {
             paragraphs[i]
         );
 
-
         await sleep(650);
 
     }
 
+
+    /*
+       Show signature after everything
+       has been written.
+    */
 
     signature.classList.add(
         "show"
@@ -1995,7 +1825,7 @@ async function startWriting() {
 
 
 /* =========================================================
-   TYPE PARAGRAPH
+   TYPE ONE PARAGRAPH
    ========================================================= */
 
 function typeParagraph(element) {
@@ -2006,10 +1836,8 @@ function typeParagraph(element) {
             const text =
                 element.dataset.text;
 
-
             element.style.visibility =
                 "visible";
-
 
             element.classList.add(
                 "typing"
@@ -2033,13 +1861,16 @@ function typeParagraph(element) {
                     resolve();
 
                     return;
-
                 }
 
 
                 const character =
                     text[index];
 
+
+                /*
+                   New line.
+                */
 
                 if (
                     character ===
@@ -2061,6 +1892,10 @@ function typeParagraph(element) {
 
                 index++;
 
+
+                /*
+                   Natural writing speed.
+                */
 
                 let delay = 25;
 
@@ -2122,7 +1957,7 @@ function sleep(ms) {
 
 
 /* =========================================================
-   HEARTS
+   FLOATING HEARTS
    ========================================================= */
 
 function createHearts() {
@@ -2153,10 +1988,8 @@ function createHearts() {
                         "div"
                     );
 
-
                 heart.className =
                     "heart";
-
 
                 heart.textContent =
                     symbols[
@@ -2167,7 +2000,6 @@ function createHearts() {
                         )
                     ];
 
-
                 heart.style.left =
                     Math.random()
                     *
@@ -2175,10 +2007,8 @@ function createHearts() {
                     +
                     "vw";
 
-
                 heart.style.bottom =
                     "-30px";
-
 
                 heart.style.fontSize =
                     (
@@ -2187,7 +2017,6 @@ function createHearts() {
                     )
                     +
                     "px";
-
 
                 heart.style.animationDuration =
                     (
@@ -2224,5 +2053,4 @@ function createHearts() {
 </script>
 
 </body>
-
 </html>
