@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -16,235 +17,302 @@
 
 /* =========================================================
    RESET
-========================================================= */
+   ========================================================= */
 
 * {
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
     margin: 0;
-    padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 }
 
 body {
-    font-family: Georgia, "Times New Roman", serif;
-    background: #180308;
+    overflow: hidden;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    background: #180408;
 }
 
 
 /* =========================================================
-   BACKGROUND
-========================================================= */
+   FIXED BACKGROUND
+   ========================================================= */
 
 .background {
+
     position: fixed;
+
     inset: 0;
+
     z-index: 0;
-    pointer-events: none;
 
     background:
-        radial-gradient(
-            circle at 50% 35%,
-            rgba(160, 20, 45, .40),
-            transparent 55%
-        ),
+
         linear-gradient(
-            135deg,
-            #350811 0%,
-            #160307 50%,
-            #3d0b15 100%
-        );
+            rgba(30, 4, 10, .42),
+            rgba(15, 2, 7, .58)
+        ),
+
+        url("background.jpg")
+        center center /
+        cover
+        no-repeat;
+
+    transform: scale(1.03);
+
 }
 
-.background::before {
+
+.background::after {
+
     content: "";
+
     position: absolute;
 
-    width: 55vw;
-    height: 55vw;
-
-    max-width: 500px;
-    max-height: 500px;
-
-    left: 50%;
-    top: 38%;
-
-    transform: translate(-50%, -50%);
-
-    border-radius: 50%;
+    inset: 0;
 
     background:
+
         radial-gradient(
-            circle,
-            rgba(255, 120, 140, .12),
-            transparent 68%
+            circle at center,
+            transparent 30%,
+            rgba(0,0,0,.25) 100%
         );
+
 }
 
 
 /* =========================================================
    ENVELOPE SCENE
-========================================================= */
+   ========================================================= */
 
 .envelope-scene {
+
     position: fixed;
+
     inset: 0;
+
     z-index: 10;
 
     display: flex;
-    align-items: center;
+
     justify-content: center;
 
+    align-items: center;
+
     transition:
-        opacity .65s ease,
-        transform .65s ease;
+        opacity 1s ease,
+        transform 1s ease;
+
 }
 
 
-/* =========================================================
-   ENVELOPE AREA
-========================================================= */
-
 .envelope-area {
+
     position: relative;
 
     width: min(560px, 84vw);
 
     aspect-ratio: 1.55;
+
+    perspective: 1800px;
+
 }
 
 
 /* =========================================================
-   SHADOW
-========================================================= */
-
-.envelope-shadow {
-    position: absolute;
-
-    left: 8%;
-    right: 8%;
-    bottom: -25px;
-
-    height: 35px;
-
-    border-radius: 50%;
-
-    background: rgba(0,0,0,.40);
-
-    filter: blur(14px);
-
-    z-index: 0;
-}
-
-
-/* =========================================================
-   INITIAL ENVELOPE
-========================================================= */
+   ENVELOPE
+   ========================================================= */
 
 .envelope {
+
     position: absolute;
+
     inset: 0;
 
-    z-index: 5;
+    transform-style: preserve-3d;
 
-    border-radius: 9px;
+    transition:
 
-    overflow: hidden;
+        transform
+        1.5s
+        cubic-bezier(
+            .77,
+            0,
+            .18,
+            1
+        );
 
-    background: #b51222;
+}
+
+
+.envelope.turn {
+
+    transform:
+        rotateY(180deg);
+
+}
+
+
+/* =========================================================
+   ENVELOPE FRONT / BACK
+   ========================================================= */
+
+.envelope-front,
+.envelope-back {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    border-radius: 8px;
+
+    backface-visibility: hidden;
+
+    -webkit-backface-visibility: hidden;
 
     box-shadow:
-        0 30px 70px rgba(0,0,0,.55);
+
+        0 35px 80px
+        rgba(0,0,0,.60);
+
 }
 
 
 /* =========================================================
-   SIMPLE RED BASE
-========================================================= */
+   ENVELOPE FRONT
+   ========================================================= */
 
-.envelope-base {
-    position: absolute;
-    inset: 0;
-
-    background: #b51222;
-}
-
-
-/* =========================================================
-   SUBTLE RED ENVELOPE FOLDS
-========================================================= */
-
-.envelope-base::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            transparent 49.5%,
-            rgba(70,0,8,.25) 50%,
-            transparent 50.5%
-        ),
-        linear-gradient(
-            225deg,
-            transparent 49.5%,
-            rgba(70,0,8,.25) 50%,
-            transparent 50.5%
-        );
-}
-
-
-/* =========================================================
-   FRONT CONTENT
-========================================================= */
-
-.front-content {
-    position: absolute;
-    inset: 0;
-
-    z-index: 20;
+.envelope-front {
 
     display: flex;
+
     flex-direction: column;
 
-    justify-content: center;
     align-items: center;
+
+    justify-content: center;
 
     text-align: center;
 
-    padding: 30px;
+    padding: 40px;
+
+    overflow: hidden;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #9c0b18,
+            #d82030 50%,
+            #820711
+        );
+
 }
 
 
-.front-small {
-    margin-bottom: 15px;
+.envelope-front::before {
 
-    color: rgba(255,255,255,.78);
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(255,255,255,.14),
+            transparent 60%
+        );
+
+}
+
+
+.envelope-front::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    height: 55%;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            transparent 49.5%,
+            rgba(80,0,8,.35) 50%,
+            transparent 50.5%
+        ),
+
+        linear-gradient(
+            225deg,
+            transparent 49.5%,
+            rgba(80,0,8,.35) 50%,
+            transparent 50.5%
+        );
+
+}
+
+
+/* =========================================================
+   ENVELOPE FRONT TEXT
+   ========================================================= */
+
+.front-small {
+
+    position: relative;
+
+    z-index: 5;
+
+    margin-bottom: 18px;
 
     font-size: 12px;
 
     letter-spacing: 4px;
 
     text-transform: uppercase;
+
+    color: white;
+
+    opacity: .75;
+
 }
 
 
 .front-title {
+
+    position: relative;
+
+    z-index: 5;
+
     color: white;
 
     font-size:
         clamp(
-            27px,
+            28px,
             5vw,
-            50px
+            52px
         );
 
     line-height: 1.12;
@@ -252,20 +320,30 @@ body {
     font-weight: 500;
 
     text-shadow:
-        0 5px 20px rgba(0,0,0,.30);
+        0 5px 25px
+        rgba(0,0,0,.3);
+
 }
 
 
 .front-title span {
-    color: #ffd0d0;
+
+    color: #ffd3d3;
+
     font-style: italic;
+
 }
 
 
 .front-name {
-    margin-top: 17px;
 
-    color: #fff1f1;
+    position: relative;
+
+    z-index: 5;
+
+    margin-top: 18px;
+
+    color: #fff2f2;
 
     font-size:
         clamp(
@@ -273,235 +351,152 @@ body {
             3vw,
             24px
         );
+
 }
 
 
 .panda {
-    font-size: 27px;
+
+    font-size: 28px;
+
 }
 
 
 /* =========================================================
-   TURNING RED CARD
+   ENVELOPE BACK
+   ========================================================= */
 
-   THIS IS THE IMPORTANT PART.
+.envelope-back {
 
-   We do NOT animate the original envelope.
+    transform:
+        rotateY(180deg);
 
-   Instead, after clicking TURN, this simple red card
-   appears and performs the fold.
-========================================================= */
+    overflow: hidden;
 
-.turn-card {
+    background:
+
+        linear-gradient(
+            145deg,
+            #920a17,
+            #ce1c2a 50%,
+            #810711
+        );
+
+}
+
+
+.envelope-back::before {
+
+    content: "";
+
     position: absolute;
+
     inset: 0;
 
-    z-index: 50;
+    background:
 
-    background: #b51222;
+        linear-gradient(
+            135deg,
+            transparent 49.5%,
+            rgba(75,0,7,.40) 50%,
+            transparent 50.5%
+        ),
 
-    border-radius: 9px;
+        linear-gradient(
+            225deg,
+            transparent 49.5%,
+            rgba(75,0,7,.40) 50%,
+            transparent 50.5%
+        );
 
-    opacity: 0;
-
-    pointer-events: none;
-
-    will-change: transform, opacity;
 }
 
 
 /* =========================================================
-   RED CARD CENTER LINE
-========================================================= */
+   TURN INSTRUCTION
+   ========================================================= */
 
-.turn-card::after {
-    content: "";
+.turn-instruction {
 
     position: absolute;
 
     left: 50%;
-    top: 0;
-    bottom: 0;
 
-    width: 2px;
+    bottom: -78px;
 
-    transform: translateX(-50%);
+    z-index: 200;
 
-    background:
-        rgba(70,0,8,.22);
+    transform:
+        translateX(-50%);
 
-    opacity: 0;
+    width: 100%;
+
+    text-align: center;
+
+    transition:
+        opacity .5s ease;
+
 }
 
 
-/* =========================================================
-   TURN CARD ACTIVE
-========================================================= */
+.turn-button {
 
-.envelope.turning .turn-card {
-    opacity: 1;
+    border: none;
+
+    background: transparent;
+
+    color:
+        rgba(255,235,235,.92);
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    padding: 10px 20px;
+
+}
+
+
+.turn-button:hover {
+
+    color: white;
+
+}
+
+
+.turn-arrow {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 25px;
 
     animation:
-        redFold
-        1.15s
-        cubic-bezier(.25,.75,.20,1)
-        forwards;
-}
+        bounce
+        1.8s
+        infinite;
 
-
-.envelope.turning .turn-card::after {
-    animation:
-        seamFade
-        1.15s
-        ease
-        forwards;
-}
-
-
-/* =========================================================
-   SIMPLE RED FOLD
-
-   No rotateY.
-   No perspective.
-   No filters.
-   No 3D.
-
-   Only scaleX + translateX.
-========================================================= */
-
-@keyframes redFold {
-
-    0% {
-        transform:
-            translateX(0)
-            scaleX(1);
-
-        opacity: 1;
-    }
-
-    25% {
-        transform:
-            translateX(0)
-            scaleX(.88);
-
-        opacity: 1;
-    }
-
-    50% {
-        transform:
-            translateX(0)
-            scaleX(.65);
-
-        opacity: 1;
-    }
-
-    72% {
-        transform:
-            translateX(0)
-            scaleX(.36);
-
-        opacity: .95;
-    }
-
-    88% {
-        transform:
-            translateX(0)
-            scaleX(.12);
-
-        opacity: .75;
-    }
-
-    100% {
-        transform:
-            translateX(0)
-            scaleX(.01);
-
-        opacity: 0;
-    }
-}
-
-
-@keyframes seamFade {
-
-    0% {
-        opacity: 0;
-    }
-
-    35% {
-        opacity: .25;
-    }
-
-    55% {
-        opacity: .60;
-    }
-
-    80% {
-        opacity: .25;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-
-/* =========================================================
-   BACK RED CARD
-
-   Appears after the fold.
-========================================================= */
-
-.back-card {
-    position: absolute;
-    inset: 0;
-
-    z-index: 40;
-
-    background: #b51222;
-
-    border-radius: 9px;
-
-    opacity: 0;
-
-    pointer-events: none;
-}
-
-
-.back-card.visible {
-    opacity: 1;
-}
-
-
-/* =========================================================
-   BACK CARD SUBTLE BORDER
-========================================================= */
-
-.back-card::before {
-    content: "";
-
-    position: absolute;
-
-    inset: 13px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.14);
-
-    border-radius: 5px;
 }
 
 
 /* =========================================================
    OPEN BUTTON
-========================================================= */
+   ========================================================= */
 
 .open-button-layer {
+
     position: absolute;
 
     left: 50%;
+
     top: 50%;
 
-    z-index: 100;
+    z-index: 500;
 
     transform:
         translate(-50%, -50%);
@@ -512,35 +507,46 @@ body {
 
     transition:
         opacity .5s ease;
+
 }
 
 
 .open-button-layer.visible {
+
     opacity: 1;
+
     pointer-events: auto;
+
 }
 
 
 .open-button {
-    min-width: 140px;
 
-    padding:
-        14px 35px;
+    border:
+
+        1px solid
+        rgba(255,255,255,.80);
 
     border-radius: 50px;
 
-    border:
-        1px solid
-        rgba(255,255,255,.85);
+    padding:
+        14px 38px;
+
+    min-width: 135px;
 
     background:
-        rgba(255,255,255,.12);
+
+        rgba(255,255,255,.18);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
 
     color: white;
 
-    font-family:
-        Georgia,
-        serif;
+    font-family: inherit;
 
     font-size: 15px;
 
@@ -548,147 +554,93 @@ body {
 
     cursor: pointer;
 
+    outline: none;
+
     box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.20);
+
+        0 8px 30px
+        rgba(0,0,0,.25);
 
     transition:
-        transform .2s ease,
-        background .2s ease;
+
+        transform .25s ease,
+
+        background .25s ease;
+
 }
 
 
 .open-button:hover {
+
     background:
-        rgba(255,255,255,.25);
+        rgba(255,255,255,.32);
 
     transform:
-        scale(1.05);
+        scale(1.07);
+
 }
 
 
 .open-button:active {
+
     transform:
         scale(.95);
+
 }
 
 
 /* =========================================================
-   TURN INSTRUCTION
-========================================================= */
-
-.turn-instruction {
-    position: absolute;
-
-    left: 50%;
-    bottom: -80px;
-
-    z-index: 120;
-
-    width: 100%;
-
-    transform:
-        translateX(-50%);
-
-    text-align: center;
-
-    transition:
-        opacity .35s ease;
-}
-
-
-.turn-button {
-    border: 0;
-
-    background: transparent;
-
-    color:
-        rgba(255,235,235,.95);
-
-    font-family:
-        Georgia,
-        serif;
-
-    font-size: 15px;
-
-    letter-spacing: 1.3px;
-
-    cursor: pointer;
-
-    padding:
-        10px 20px;
-}
-
-
-.turn-arrow {
-    display: block;
-
-    margin-bottom: 5px;
-
-    font-size: 24px;
-
-    animation:
-        arrowBounce
-        1.8s
-        infinite;
-}
-
-
-@keyframes arrowBounce {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(6px);
-    }
-}
-
-
-/* =========================================================
-   ENVELOPE EXIT
-========================================================= */
+   ENVELOPE LEAVES
+   ========================================================= */
 
 .envelope-scene.opening {
+
     opacity: 0;
 
     transform:
-        scale(.94)
-        translateY(15px);
+        scale(.72)
+        translateY(30px);
 
     pointer-events: none;
+
 }
 
 
 /* =========================================================
-   PAPER SCENE
-========================================================= */
+   LETTER SCENE
+   ========================================================= */
 
 .paper-scene {
+
     position: fixed;
 
     inset: 0;
 
-    z-index: 20;
+    z-index: 30;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
+    /*
+       IMPORTANT:
+       Must NOT be pointer-events:none
+       otherwise scrolling won't work.
+    */
+
     pointer-events: none;
+
 }
 
 
 /* =========================================================
-   LETTER PAPER
-========================================================= */
+   LETTER
+   ========================================================= */
 
 .paper {
+
     position: relative;
 
     width:
@@ -703,171 +655,256 @@ body {
             82vh
         );
 
+    overflow: hidden;
+
     background:
+
         linear-gradient(
-            145deg,
-            #fffdf3,
-            #fff7dc
-        );
+            rgba(255,250,232,.98),
+            rgba(255,247,220,.98)
+        ),
+
+        url("paper-texture.jpg")
+        center /
+        cover;
 
     box-shadow:
-        0 30px 90px
-        rgba(0,0,0,.60);
+
+        0 35px 100px
+        rgba(0,0,0,.65);
 
     opacity: 0;
 
     transform:
+
         translateY(180px)
-        scaleY(.04);
+        scaleY(.05);
 
     transform-origin:
         bottom center;
 
-    overflow: hidden;
+    /*
+       IMPORTANT:
+       After appearing, paper accepts scrolling.
+    */
+
+    pointer-events: auto;
+
 }
 
 
 .paper.unfold {
+
     animation:
+
         paperUnfold
-        1.35s
-        cubic-bezier(.16,1,.3,1)
+        1.6s
+        cubic-bezier(
+            .16,
+            1,
+            .3,
+            1
+        )
         forwards;
+
 }
 
 
 @keyframes paperUnfold {
 
     0% {
+
         opacity: 0;
 
         transform:
             translateY(180px)
-            scaleY(.04);
+            scaleY(.05);
+
     }
 
     30% {
+
         opacity: 1;
 
         transform:
-            translateY(85px)
-            scaleY(.28);
+            translateY(90px)
+            scaleY(.25);
+
     }
 
     60% {
+
         transform:
-            translateY(30px)
-            scaleY(.72);
+            translateY(35px)
+            scaleY(.70);
+
     }
 
     100% {
+
         opacity: 1;
 
         transform:
             translateY(0)
             scaleY(1);
+
     }
+
 }
 
 
 /* =========================================================
    PAPER BORDER
-========================================================= */
+   ========================================================= */
 
 .paper::before {
+
     content: "";
 
     position: absolute;
 
     inset: 11px;
 
-    z-index: 30;
+    z-index: 10;
 
     border:
         1px solid
         rgba(110,70,45,.18);
 
     pointer-events: none;
+
+}
+
+
+.paper::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .12;
+
+    background:
+
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 31px,
+            rgba(100,70,45,.18) 32px
+        );
+
 }
 
 
 /* =========================================================
-   PAPER CONTENT
-========================================================= */
+   SCROLLABLE PAPER CONTENT
+   ========================================================= */
 
 .paper-content {
+
     position: relative;
 
     z-index: 5;
 
     width: 100%;
+
     height: 100%;
 
+    /*
+       THIS enables scrolling.
+    */
+
     overflow-y: auto;
+
     overflow-x: hidden;
 
     padding:
-        45px
+
+        48px
         clamp(
-            27px,
+            30px,
             7vw,
             70px
         );
 
+    color:
+        #38251f;
+
+    /*
+       Makes scrolling smooth on phones.
+    */
+
     -webkit-overflow-scrolling:
         touch;
 
-    scrollbar-width: thin;
+    scrollbar-width:
+        thin;
 
-    color:
-        #38251f;
-}
-
-
-.paper-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-
-.paper-content::-webkit-scrollbar-track {
-    background:
-        rgba(120,70,45,.07);
-}
-
-
-.paper-content::-webkit-scrollbar-thumb {
-    background:
-        rgba(120,70,45,.32);
-
-    border-radius: 10px;
 }
 
 
 /* =========================================================
-   LETTER HEADER
-========================================================= */
+   SCROLLBAR
+   ========================================================= */
 
-.letter-header {
-    text-align: center;
+.paper-content::-webkit-scrollbar {
 
-    margin-bottom: 35px;
+    width: 6px;
 
-    opacity: 0;
 }
 
 
-.paper.writing .letter-header {
+.paper-content::-webkit-scrollbar-track {
+
+    background:
+        rgba(120,70,45,.08);
+
+}
+
+
+.paper-content::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(120,70,45,.35);
+
+    border-radius: 10px;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.letter-header {
+
+    text-align: center;
+
+    margin-bottom: 38px;
+
+    opacity: 0;
+
+}
+
+
+.paper.writing
+.letter-header {
+
     animation:
+
         fadeUp
-        .9s
-        .15s
+        1s
+        .2s
         forwards;
+
 }
 
 
 .letter-small {
-    color:
-        #8c5746;
 
     font-family:
         "Courier New",
@@ -877,11 +914,16 @@ body {
 
     letter-spacing: 4px;
 
+    color:
+        #8c5746;
+
     margin-bottom: 12px;
+
 }
 
 
 .letter-header h1 {
+
     margin: 0;
 
     color:
@@ -897,30 +939,38 @@ body {
     font-style: italic;
 
     font-weight: 500;
+
 }
 
 
 .letter-header p {
+
     margin-top: 10px;
+
+    font-size: 15px;
 
     color:
         #765045;
 
-    font-size: 15px;
 }
 
 
 /* =========================================================
    WRITEUP
-========================================================= */
+   ========================================================= */
 
 .writeup {
+
+    position: relative;
+
+    z-index: 20;
+
     max-width: 650px;
 
-    margin:
-        0 auto;
+    margin: auto;
 
     font-family:
+
         "Segoe Print",
         "Bradley Hand",
         "Comic Sans MS",
@@ -936,31 +986,44 @@ body {
     line-height:
         1.82;
 
-    color:
-        #38251f;
-}
+    letter-spacing:
+        .05px;
 
-
-.write-paragraph {
-    margin:
-        0 0 24px 0;
-
-    visibility: hidden;
 }
 
 
 /* =========================================================
-   TYPING CURSOR
-========================================================= */
+   TYPEWRITER PARAGRAPHS
+   ========================================================= */
+
+.write-paragraph {
+
+    margin-bottom: 24px;
+
+    /*
+       Initially completely hidden.
+    */
+
+    visibility: hidden;
+
+}
+
+
+/*
+   This is the actual writing cursor.
+
+   It appears only while text is being written.
+*/
 
 .write-paragraph.typing::after {
+
     content: "";
 
     display: inline-block;
 
     width: 2px;
 
-    height: 1.1em;
+    height: 1.15em;
 
     margin-left: 3px;
 
@@ -970,206 +1033,381 @@ body {
         #801d2a;
 
     animation:
-        blink
-        .65s
+        cursorBlink
+        .7s
         infinite;
-}
 
-
-@keyframes blink {
-
-    0%,
-    45% {
-        opacity: 1;
-    }
-
-    46%,
-    100% {
-        opacity: 0;
-    }
 }
 
 
 /* =========================================================
-   FINAL LINE
-========================================================= */
+   IMPORTANT:
+   Text inside these paragraphs is hidden from normal
+   rendering until JavaScript types it.
+   ========================================================= */
+
+.write-paragraph {
+
+    white-space: normal;
+
+}
+
+
+/* =========================================================
+   SPECIAL COLORS
+   ========================================================= */
+
+.heart-line {
+
+    color:
+        #801d2a;
+
+}
+
+
+.playful {
+
+    color:
+        #713c32;
+
+}
+
 
 .final-line {
+
+    margin-top: 30px;
+
     color:
         #801d2a;
 
     font-size: 20px;
+
 }
 
 
 /* =========================================================
    SIGNATURE
-========================================================= */
+   ========================================================= */
 
 .signature {
-    max-width: 650px;
 
-    margin:
-        30px auto 0;
+    margin-top: 35px;
 
-    padding-bottom: 55px;
+    padding-bottom: 50px;
 
     text-align: right;
 
-    color:
-        #801d2a;
-
     font-family:
+
         "Segoe Print",
         "Bradley Hand",
         cursive;
 
-    font-size: 22px;
+    font-size: 23px;
 
     line-height: 1.7;
 
+    color:
+        #801d2a;
+
     opacity: 0;
+
 }
 
 
 .signature.show {
+
     animation:
+
         fadeUp
-        1s
+        1.2s
         forwards;
+
 }
 
 
 /* =========================================================
-   HEARTS
-========================================================= */
+   PHOTO
+   ========================================================= */
+
+.photo {
+
+    width:
+        min(
+            520px,
+            100%
+        );
+
+    margin:
+        50px auto 30px;
+
+    padding: 12px;
+
+    background: white;
+
+    box-shadow:
+
+        0 15px 35px
+        rgba(60,30,20,.25);
+
+    transform:
+        rotate(1deg);
+
+    opacity: 0;
+
+}
+
+
+.photo img {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+}
+
+
+.photo.show {
+
+    animation:
+
+        fadeUp
+        1.2s
+        forwards;
+
+}
+
+
+/* =========================================================
+   FLOATING HEARTS
+   ========================================================= */
 
 .heart {
+
     position: fixed;
 
-    z-index: 500;
+    z-index: 200;
 
     pointer-events: none;
 
     animation:
-        heartFloat
+
+        floatHeart
         5s
         linear
         forwards;
+
 }
 
 
-@keyframes heartFloat {
+@keyframes floatHeart {
 
     0% {
+
         opacity: 0;
 
         transform:
-            translateY(20px)
-            scale(.5);
+            translateY(30px)
+            scale(.5)
+            rotate(0deg);
+
     }
 
     15% {
+
         opacity: 1;
+
     }
 
     100% {
+
         opacity: 0;
 
         transform:
             translateY(-100vh)
-            scale(1.25)
-            rotate(20deg);
+            scale(1.3)
+            rotate(25deg);
+
     }
+
 }
 
 
 /* =========================================================
-   GENERAL
-========================================================= */
+   GENERAL ANIMATIONS
+   ========================================================= */
 
 @keyframes fadeUp {
 
     from {
+
         opacity: 0;
 
         transform:
-            translateY(20px);
+            translateY(25px);
+
     }
 
     to {
+
         opacity: 1;
 
         transform:
             translateY(0);
+
     }
+
+}
+
+
+@keyframes bounce {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(7px);
+
+    }
+
+}
+
+
+@keyframes cursorBlink {
+
+    0%,
+    45% {
+
+        opacity: 1;
+
+    }
+
+    46%,
+    100% {
+
+        opacity: 0;
+
+    }
+
 }
 
 
 /* =========================================================
    MOBILE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 600px) {
 
     .envelope-area {
-        width: 86vw;
+
+        width: 88vw;
+
     }
 
-    .front-content {
-        padding: 20px;
+
+    .envelope-front {
+
+        padding: 25px;
+
     }
+
 
     .front-small {
+
         font-size: 9px;
+
         letter-spacing: 2px;
+
     }
+
 
     .front-title {
-        font-size: 27px;
+
+        font-size: 28px;
+
     }
+
 
     .front-name {
+
         font-size: 16px;
+
     }
+
 
     .turn-instruction {
-        bottom: -75px;
+
+        bottom: -70px;
+
     }
+
 
     .turn-button {
+
         font-size: 13px;
+
     }
+
 
     .paper {
+
         width: 94vw;
+
         height: 90vh;
+
     }
+
 
     .paper-content {
+
         padding:
-            38px 24px;
+            40px 25px;
+
     }
 
-    .letter-header h1 {
-        font-size: 33px;
-    }
-
-    .letter-header p {
-        font-size: 13px;
-    }
 
     .writeup {
+
         font-size: 16px;
+
         line-height: 1.82;
+
     }
 
-    .signature {
-        font-size: 20px;
+
+    .letter-header h1 {
+
+        font-size: 34px;
+
     }
+
+
+    .letter-header p {
+
+        font-size: 13px;
+
+    }
+
+
+    .signature {
+
+        font-size: 20px;
+
+    }
+
 }
 
 </style>
+
 </head>
 
 
@@ -1178,14 +1416,14 @@ body {
 
 <!-- =====================================================
      BACKGROUND
-===================================================== -->
+     ===================================================== -->
 
 <div class="background"></div>
 
 
 <!-- =====================================================
-     ENVELOPE SCENE
-===================================================== -->
+     ENVELOPE
+     ===================================================== -->
 
 <div
     class="envelope-scene"
@@ -1194,13 +1432,13 @@ body {
 
     <div
         class="envelope-area"
+        id="envelopeArea"
     >
 
 
-        <div
-            class="envelope-shadow"
-        ></div>
-
+        <!-- =============================================
+             ENVELOPE
+             ============================================= -->
 
         <div
             class="envelope"
@@ -1208,29 +1446,18 @@ body {
         >
 
 
-            <!-- =================================================
-                 NORMAL ENVELOPE
-            ================================================== -->
+            <!-- FRONT -->
 
-            <div
-                class="envelope-base"
-            ></div>
+            <div class="envelope-front">
 
+                <div class="front-small">
 
-            <div
-                class="front-content"
-            >
-
-                <div
-                    class="front-small"
-                >
                     A little something for you...
+
                 </div>
 
 
-                <div
-                    class="front-title"
-                >
+                <div class="front-title">
 
                     Happiest Birthday<br>
 
@@ -1243,16 +1470,12 @@ body {
                 </div>
 
 
-                <div
-                    class="front-name"
-                >
+                <div class="front-name">
 
                     Pranati Vahia
                     aka Panda
 
-                    <span
-                        class="panda"
-                    >
+                    <span class="panda">
                         🐼❤️
                     </span>
 
@@ -1261,33 +1484,17 @@ body {
             </div>
 
 
-            <!-- =================================================
-                 SIMPLE RED TURN CARD
+            <!-- BACK -->
 
-                 This is the ONLY thing animated.
-            ================================================== -->
-
-            <div
-                class="turn-card"
-            ></div>
-
-
-            <!-- =================================================
-                 RED BACK
-            ================================================== -->
-
-            <div
-                class="back-card"
-                id="backCard"
-            ></div>
+            <div class="envelope-back"></div>
 
 
         </div>
 
 
-        <!-- =================================================
+        <!-- =============================================
              TURN BUTTON
-        ================================================== -->
+             ============================================= -->
 
         <div
             class="turn-instruction"
@@ -1300,9 +1507,7 @@ body {
                 id="turnButton"
             >
 
-                <span
-                    class="turn-arrow"
-                >
+                <span class="turn-arrow">
                     ↓
                 </span>
 
@@ -1314,9 +1519,9 @@ body {
         </div>
 
 
-        <!-- =================================================
+        <!-- =============================================
              OPEN BUTTON
-        ================================================== -->
+             ============================================= -->
 
         <div
             class="open-button-layer"
@@ -1328,7 +1533,9 @@ body {
                 class="open-button"
                 id="openButton"
             >
+
                 OPEN
+
             </button>
 
         </div>
@@ -1341,10 +1548,11 @@ body {
 
 <!-- =====================================================
      LETTER
-===================================================== -->
+     ===================================================== -->
 
 <div
     class="paper-scene"
+    id="paperScene"
 >
 
     <div
@@ -1354,43 +1562,55 @@ body {
 
         <div
             class="paper-content"
+            id="paperContent"
         >
 
 
-            <!-- =================================================
-                 LETTER HEADER
-            ================================================== -->
+            <!-- =========================================
+                 HEADER
+                 ========================================= -->
 
             <header
                 class="letter-header"
             >
 
-                <div
-                    class="letter-small"
-                >
+                <div class="letter-small">
+
                     FOR MY PANDA 🐼
+
                 </div>
 
 
                 <h1>
+
                     Happiest Birthday ❤️
+
                 </h1>
 
 
                 <p>
+
                     To the amazing UX Lead,
                     Pranati Vahia aka Panda.
+
                 </p>
 
             </header>
 
 
-            <!-- =================================================
+            <!-- =========================================
                  WRITEUP
-            ================================================== -->
+
+                 IMPORTANT:
+
+                 We put the text into data-text attributes
+                 so JavaScript can write it character by
+                 character.
+                 ========================================= -->
 
             <div
                 class="writeup"
+                id="writeup"
             >
 
 
@@ -1460,7 +1680,7 @@ And I know them too."
 
                 <div
                     class="write-paragraph"
-                    data-text="Tane tari journey jaate shape kari che.
+                    data-text="Te tari journey jaate shape kari che.
 
 From Dev to UX, tu jaate chase karyu, jaate decisions lidha, ane pachhi ene prove pan karyu.
 
@@ -1488,7 +1708,7 @@ Hasta reh.
 
 Because that smile... tara face par bau sari lage che, especially aa golu face par. 🥹❤️
 
-You are a Lead, and the way you think about your department, the UX team, and the people working with you...
+You are a Lead, and the way you think about your department, the UX team, and the way you work for your people (UX dept)...
 
 Seriously commendable."
                 ></div>
@@ -1571,9 +1791,9 @@ And I love you.
             </div>
 
 
-            <!-- =================================================
+            <!-- =========================================
                  SIGNATURE
-            ================================================== -->
+                 ========================================= -->
 
             <div
                 class="signature"
@@ -1590,7 +1810,6 @@ And I love you.
 
             </div>
 
-
         </div>
 
     </div>
@@ -1598,11 +1817,12 @@ And I love you.
 </div>
 
 
+
 <script>
 
 /* =========================================================
    ELEMENTS
-========================================================= */
+   ========================================================= */
 
 const envelope =
     document.getElementById(
@@ -1612,11 +1832,6 @@ const envelope =
 const turnButton =
     document.getElementById(
         "turnButton"
-    );
-
-const turnInstruction =
-    document.getElementById(
-        "turnInstruction"
     );
 
 const openButton =
@@ -1634,14 +1849,19 @@ const envelopeScene =
         "envelopeScene"
     );
 
-const backCard =
+const turnInstruction =
     document.getElementById(
-        "backCard"
+        "turnInstruction"
     );
 
 const paper =
     document.getElementById(
         "paper"
+    );
+
+const paperContent =
+    document.getElementById(
+        "paperContent"
     );
 
 const paragraphs =
@@ -1654,72 +1874,61 @@ const signature =
         "signature"
     );
 
+const photo =
+    document.getElementById(
+        "photo"
+    );
+
 
 let envelopeTurned = false;
+
 let envelopeOpened = false;
 
 
 /* =========================================================
    TURN ENVELOPE
-========================================================= */
+   ========================================================= */
 
 turnButton.addEventListener(
     "click",
     function(event) {
 
         event.preventDefault();
+
         event.stopPropagation();
 
 
         if (envelopeTurned) {
+
             return;
+
         }
 
 
         envelopeTurned = true;
 
 
-        /*
-           Hide instruction immediately.
-        */
-
-        turnInstruction.style.opacity = "0";
-        turnInstruction.style.pointerEvents = "none";
-
-
-        /*
-           Start the simple red fold.
-        */
-
         envelope.classList.add(
-            "turning"
+            "turn"
         );
 
 
-        /*
-           After the fold is completely
-           finished, show the red back.
-        */
+        turnInstruction.style.opacity =
+            "0";
+
+        turnInstruction.style.pointerEvents =
+            "none";
+
 
         setTimeout(
             function() {
-
-                backCard.classList.add(
-                    "visible"
-                );
-
-
-                /*
-                   Show OPEN only after
-                   the animation has finished.
-                */
 
                 openButtonLayer.classList.add(
                     "visible"
                 );
 
             },
-            1180
+            1100
         );
 
     }
@@ -1728,21 +1937,28 @@ turnButton.addEventListener(
 
 /* =========================================================
    OPEN ENVELOPE
-========================================================= */
+   ========================================================= */
 
 openButton.addEventListener(
     "click",
     function(event) {
 
         event.preventDefault();
+
         event.stopPropagation();
 
 
-        if (
-            !envelopeTurned ||
-            envelopeOpened
-        ) {
+        if (!envelopeTurned) {
+
             return;
+
+        }
+
+
+        if (envelopeOpened) {
+
+            return;
+
         }
 
 
@@ -1754,9 +1970,13 @@ openButton.addEventListener(
         );
 
 
+        openButtonLayer.style.pointerEvents =
+            "none";
+
+
         /*
-           Move envelope away.
-        */
+         * Envelope disappears.
+         */
 
         envelopeScene.classList.add(
             "opening"
@@ -1764,8 +1984,8 @@ openButton.addEventListener(
 
 
         /*
-           Start paper unfolding.
-        */
+         * Paper starts unfolding.
+         */
 
         setTimeout(
             function() {
@@ -1775,14 +1995,14 @@ openButton.addEventListener(
                 );
 
             },
-            300
+            450
         );
 
 
         /*
-           Start writing once paper
-           has opened.
-        */
+         * Wait until paper is open,
+         * then start actual writing.
+         */
 
         setTimeout(
             function() {
@@ -1798,7 +2018,7 @@ openButton.addEventListener(
                 createHearts();
 
             },
-            1650
+            2000
         );
 
     }
@@ -1806,13 +2026,21 @@ openButton.addEventListener(
 
 
 /* =========================================================
-   WRITING
-========================================================= */
+   REAL CHARACTER-BY-CHARACTER WRITING
+   ========================================================= */
 
 async function startWriting() {
 
-    await sleep(650);
+    /*
+     * Wait a little for header.
+     */
 
+    await sleep(700);
+
+
+    /*
+     * Write every paragraph one after another.
+     */
 
     for (
         let i = 0;
@@ -1824,13 +2052,34 @@ async function startWriting() {
             paragraphs[i]
         );
 
+        /*
+         * Small natural pause between
+         * paragraphs.
+         */
 
-        await sleep(550);
+        await sleep(650);
 
     }
 
 
+    /*
+     * Once everything has been written,
+     * show signature.
+     */
+
     signature.classList.add(
+        "show"
+    );
+
+
+    await sleep(700);
+
+
+    /*
+     * Photo appears at the very end.
+     */
+
+    photo.classList.add(
         "show"
     );
 
@@ -1838,8 +2087,8 @@ async function startWriting() {
 
 
 /* =========================================================
-   TYPEWRITER
-========================================================= */
+   TYPE ONE PARAGRAPH
+   ========================================================= */
 
 function typeParagraph(element) {
 
@@ -1849,6 +2098,10 @@ function typeParagraph(element) {
             const text =
                 element.dataset.text;
 
+
+            /*
+             * Make visible.
+             */
 
             element.style.visibility =
                 "visible";
@@ -1862,6 +2115,18 @@ function typeParagraph(element) {
             let index = 0;
 
 
+            /*
+             * Different speeds make it feel
+             * more natural.
+             */
+
+            const normalSpeed = 25;
+
+            const spaceSpeed = 8;
+
+            const punctuationSpeed = 130;
+
+
             function writeCharacter() {
 
                 if (
@@ -1873,10 +2138,10 @@ function typeParagraph(element) {
                         "typing"
                     );
 
-
                     resolve();
 
                     return;
+
                 }
 
 
@@ -1884,20 +2149,30 @@ function typeParagraph(element) {
                     text[index];
 
 
+                /*
+                 * Preserve line breaks.
+                 */
+
                 if (
-                    character === "\n"
+                    character ===
+                    "\n"
                 ) {
 
                     element.innerHTML +=
                         "<br>";
 
-                } else {
+                }
 
-                    element.appendChild(
-                        document.createTextNode(
-                            character
-                        )
-                    );
+                else {
+
+                    /*
+                     * Escape HTML characters
+                     * because text comes from
+                     * data attributes.
+                     */
+
+                    element.textContent +=
+                        character;
 
                 }
 
@@ -1906,38 +2181,34 @@ function typeParagraph(element) {
 
 
                 /*
-                   Handwriting-like speed.
-                */
+                 * Natural writing speed.
+                 */
 
-                let delay = 24;
+                let delay =
+                    normalSpeed;
 
 
                 if (
-                    character === " "
+                    character ===
+                    " "
                 ) {
 
-                    delay = 7;
+                    delay =
+                        spaceSpeed;
 
                 }
 
 
                 if (
                     character === "." ||
+                    character === "," ||
                     character === "!" ||
                     character === "?" ||
-                    character === ","
-                ) {
-
-                    delay = 115;
-
-                }
-
-
-                if (
                     character === "—"
                 ) {
 
-                    delay = 90;
+                    delay =
+                        punctuationSpeed;
 
                 }
 
@@ -1960,19 +2231,16 @@ function typeParagraph(element) {
 
 /* =========================================================
    SLEEP
-========================================================= */
+   ========================================================= */
 
 function sleep(ms) {
 
     return new Promise(
-        function(resolve) {
-
+        resolve =>
             setTimeout(
                 resolve,
                 ms
-            );
-
-        }
+            )
     );
 
 }
@@ -1980,23 +2248,25 @@ function sleep(ms) {
 
 /* =========================================================
    FLOATING HEARTS
-========================================================= */
+   ========================================================= */
 
 function createHearts() {
 
     const symbols = [
+
         "❤️",
         "💕",
         "💗",
         "✨",
         "🌸",
         "🐼"
+
     ];
 
 
     for (
         let i = 0;
-        i < 16;
+        i < 18;
         i++
     ) {
 
@@ -2016,34 +2286,41 @@ function createHearts() {
                 heart.textContent =
                     symbols[
                         Math.floor(
-                            Math.random() *
+                            Math.random()
+                            *
                             symbols.length
                         )
                     ];
 
 
                 heart.style.left =
-                    (
-                        Math.random() * 100
-                    ) + "vw";
+                    Math.random()
+                    *
+                    100
+                    +
+                    "vw";
 
 
                 heart.style.bottom =
-                    "-25px";
+                    "-30px";
 
 
                 heart.style.fontSize =
                     (
                         14 +
-                        Math.random() * 16
-                    ) + "px";
+                        Math.random() * 18
+                    )
+                    +
+                    "px";
 
 
                 heart.style.animationDuration =
                     (
                         4 +
-                        Math.random() * 2
-                    ) + "s";
+                        Math.random() * 3
+                    )
+                    +
+                    "s";
 
 
                 document.body.appendChild(
