@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -106,6 +108,7 @@ body {
     position: relative;
 
     width: min(560px, 84vw);
+
     aspect-ratio: 1.55;
 }
 
@@ -120,22 +123,19 @@ body {
 
     border-radius: 9px;
 
+    overflow: hidden;
+
     box-shadow:
         0 35px 80px rgba(0,0,0,.65);
 
-    overflow: hidden;
-
     /*
-       NO 3D.
-       NO rotateY.
-       NO perspective.
+       IMPORTANT:
+       No perspective.
+       No rotateY.
+       No preserve-3d.
     */
 
     transform-origin: center center;
-
-    transition:
-        transform 1.15s cubic-bezier(.77,0,.18,1),
-        opacity .9s ease;
 }
 
 
@@ -146,6 +146,8 @@ body {
 .envelope-front {
     position: absolute;
     inset: 0;
+
+    z-index: 5;
 
     display: flex;
     flex-direction: column;
@@ -163,13 +165,16 @@ body {
             #d51c2c 50%,
             #760610
         );
+
+    transform-origin: center center;
 }
 
 
-/* Highlight */
+/* Front highlight */
 
 .envelope-front::before {
     content: "";
+
     position: absolute;
     inset: 0;
 
@@ -182,7 +187,7 @@ body {
 }
 
 
-/* Envelope folds */
+/* Front folds */
 
 .envelope-front::after {
     content: "";
@@ -219,11 +224,12 @@ body {
 
 .front-small {
     position: relative;
-    z-index: 5;
+    z-index: 10;
 
     margin-bottom: 18px;
 
     font-size: 12px;
+
     letter-spacing: 4px;
 
     text-transform: uppercase;
@@ -236,7 +242,7 @@ body {
 
 .front-title {
     position: relative;
-    z-index: 5;
+    z-index: 10;
 
     color: white;
 
@@ -252,7 +258,8 @@ body {
     font-weight: 500;
 
     text-shadow:
-        0 5px 25px rgba(0,0,0,.35);
+        0 5px 25px
+        rgba(0,0,0,.35);
 }
 
 
@@ -264,7 +271,7 @@ body {
 
 .front-name {
     position: relative;
-    z-index: 5;
+    z-index: 10;
 
     margin-top: 18px;
 
@@ -285,6 +292,46 @@ body {
 
 
 /* =========================================================
+   CENTER FOLD
+   ========================================================= */
+
+.center-fold {
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    left: 50%;
+
+    width: 3px;
+
+    z-index: 50;
+
+    transform:
+        translateX(-50%)
+        scaleY(0);
+
+    opacity: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(255,255,255,.30),
+            rgba(80,0,8,.45),
+            rgba(255,255,255,.18),
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px
+        rgba(0,0,0,.3);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
    BACK
    ========================================================= */
 
@@ -292,9 +339,7 @@ body {
     position: absolute;
     inset: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 2;
 
     background:
         linear-gradient(
@@ -306,16 +351,12 @@ body {
 
     opacity: 0;
 
-    pointer-events: none;
-
     transform:
-        scaleX(.08);
+        scaleX(.02);
 
-    transform-origin: center;
+    transform-origin: center center;
 
-    transition:
-        transform 1s cubic-bezier(.77,0,.18,1),
-        opacity .45s ease;
+    pointer-events: none;
 }
 
 
@@ -346,101 +387,220 @@ body {
 
 
 /* =========================================================
-   TURN ANIMATION
+   TURN SHADOW
+   ========================================================= */
+
+.turn-shadow {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 60;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0,0,0,.30) 48%,
+            rgba(255,255,255,.08) 50%,
+            rgba(0,0,0,.30) 52%,
+            transparent 100%
+        );
+
+    mix-blend-mode: multiply;
+}
+
+
+/* =========================================================
+   SMOOTH TURN ANIMATION
    ========================================================= */
 
 /*
-   Step 1:
-   Front folds toward the middle.
+   FRONT
+
+   Instead of disappearing instantly, the envelope
+   compresses toward its centre while slightly moving
+   vertically. This gives the impression of paper folding.
 */
 
 .envelope-card.turning .envelope-front {
+
     animation:
-        frontFold
-        1.15s
-        cubic-bezier(.77,0,.18,1)
+        paperFrontFold
+        1.45s
+        cubic-bezier(
+            .76,
+            0,
+            .18,
+            1
+        )
         forwards;
 }
 
 
-@keyframes frontFold {
+@keyframes paperFrontFold {
 
     0% {
         transform:
             scaleX(1)
+            scaleY(1)
             translateX(0);
 
         opacity: 1;
+
+        filter:
+            brightness(1);
     }
 
-    35% {
+    18% {
         transform:
-            scaleX(.48)
-            translateX(-3%);
+            scaleX(.94)
+            scaleY(.995)
+            translateX(-1%);
 
         opacity: 1;
+
+        filter:
+            brightness(.98);
     }
 
-    55% {
+    38% {
         transform:
-            scaleX(.06)
-            translateX(-5%);
+            scaleX(.72)
+            scaleY(.985)
+            translateX(-2%);
+
+        opacity: 1;
+
+        filter:
+            brightness(.94);
+    }
+
+    56% {
+        transform:
+            scaleX(.43)
+            scaleY(.96)
+            translateX(-2%);
+
+        opacity: .92;
+
+        filter:
+            brightness(.86);
+    }
+
+    72% {
+        transform:
+            scaleX(.18)
+            scaleY(.93)
+            translateX(-1%);
+
+        opacity: .50;
+
+        filter:
+            brightness(.75);
+    }
+
+    84% {
+        transform:
+            scaleX(.055)
+            scaleY(.90)
+            translateX(0);
 
         opacity: 0;
+
+        filter:
+            brightness(.65);
     }
 
     100% {
         transform:
-            scaleX(.06)
-            translateX(-5%);
+            scaleX(.02)
+            scaleY(.88)
+            translateX(0);
 
         opacity: 0;
     }
 }
 
 
-/*
-   Step 2:
-   Back expands from the middle.
-*/
+/* =========================================================
+   BACK REVEAL
+   ========================================================= */
 
 .envelope-card.turning .envelope-back {
 
     animation:
-        backReveal
-        1.15s
-        .35s
-        cubic-bezier(.77,0,.18,1)
+        paperBackReveal
+        1.45s
+        .15s
+        cubic-bezier(
+            .76,
+            0,
+            .18,
+            1
+        )
         forwards;
 }
 
 
-@keyframes backReveal {
+@keyframes paperBackReveal {
 
     0% {
         transform:
-            scaleX(.06);
+            scaleX(.02)
+            scaleY(.88);
 
         opacity: 0;
     }
 
-    40% {
+    18% {
         transform:
-            scaleX(.48);
+            scaleX(.08)
+            scaleY(.90);
 
-        opacity: 0;
+        opacity: .05;
     }
 
-    65% {
+    35% {
         transform:
-            scaleX(.82);
+            scaleX(.25)
+            scaleY(.94);
+
+        opacity: .18;
+    }
+
+    52% {
+        transform:
+            scaleX(.48)
+            scaleY(.97);
+
+        opacity: .48;
+    }
+
+    68% {
+        transform:
+            scaleX(.72)
+            scaleY(.985);
+
+        opacity: .82;
+    }
+
+    84% {
+        transform:
+            scaleX(.92)
+            scaleY(.995);
 
         opacity: 1;
     }
 
     100% {
         transform:
-            scaleX(1);
+            scaleX(1)
+            scaleY(1);
 
         opacity: 1;
     }
@@ -448,7 +608,108 @@ body {
 
 
 /* =========================================================
-   TURN INSTRUCTION
+   CENTER FOLD ANIMATION
+   ========================================================= */
+
+.envelope-card.turning .center-fold {
+
+    animation:
+        centerFoldAnimation
+        1.45s
+        ease
+        forwards;
+}
+
+
+@keyframes centerFoldAnimation {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scaleY(0);
+    }
+
+    25% {
+        opacity: .35;
+        transform:
+            translateX(-50%)
+            scaleY(.35);
+    }
+
+    48% {
+        opacity: .75;
+        transform:
+            translateX(-50%)
+            scaleY(.72);
+    }
+
+    65% {
+        opacity: .4;
+        transform:
+            translateX(-50%)
+            scaleY(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scaleY(1);
+    }
+}
+
+
+/* =========================================================
+   SHADOW ANIMATION
+   ========================================================= */
+
+.envelope-card.turning .turn-shadow {
+
+    animation:
+        movingShadow
+        1.45s
+        ease
+        forwards;
+}
+
+
+@keyframes movingShadow {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateX(-100%);
+    }
+
+    30% {
+        opacity: .15;
+        transform:
+            translateX(-30%);
+    }
+
+    50% {
+        opacity: .35;
+        transform:
+            translateX(0);
+    }
+
+    70% {
+        opacity: .15;
+        transform:
+            translateX(30%);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translateX(100%);
+    }
+}
+
+
+/* =========================================================
+   TURN BUTTON
    ========================================================= */
 
 .turn-instruction {
@@ -472,6 +733,7 @@ body {
 
 
 .turn-button {
+
     border: none;
 
     background: transparent;
@@ -487,16 +749,19 @@ body {
 
     cursor: pointer;
 
-    padding: 10px 20px;
+    padding:
+        10px 20px;
 }
 
 
 .turn-button:active {
-    transform: scale(.96);
+    transform:
+        scale(.96);
 }
 
 
 .turn-arrow {
+
     display: block;
 
     margin-bottom: 4px;
@@ -515,6 +780,7 @@ body {
    ========================================================= */
 
 .open-button-layer {
+
     position: absolute;
 
     left: 50%;
@@ -530,17 +796,20 @@ body {
     pointer-events: none;
 
     transition:
-        opacity .5s ease;
+        opacity .6s ease;
 }
 
 
 .open-button-layer.visible {
+
     opacity: 1;
+
     pointer-events: auto;
 }
 
 
 .open-button {
+
     border:
         1px solid
         rgba(255,255,255,.85);
@@ -554,6 +823,12 @@ body {
 
     background:
         rgba(255,255,255,.17);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
 
     color: white;
 
@@ -578,6 +853,7 @@ body {
 
 
 .open-button:hover {
+
     background:
         rgba(255,255,255,.32);
 
@@ -587,6 +863,7 @@ body {
 
 
 .open-button:active {
+
     transform:
         scale(.95);
 }
@@ -609,11 +886,13 @@ body {
 
 
 /* =========================================================
-   LETTER SCENE
+   LETTER
    ========================================================= */
 
 .paper-scene {
+
     position: fixed;
+
     inset: 0;
 
     z-index: 30;
@@ -621,17 +900,15 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     pointer-events: none;
 }
 
 
-/* =========================================================
-   LETTER
-   ========================================================= */
-
 .paper {
+
     position: relative;
 
     width:
@@ -690,6 +967,7 @@ body {
 @keyframes paperUnfold {
 
     0% {
+
         opacity: 0;
 
         transform:
@@ -698,6 +976,7 @@ body {
     }
 
     30% {
+
         opacity: 1;
 
         transform:
@@ -728,6 +1007,7 @@ body {
    ========================================================= */
 
 .paper::before {
+
     content: "";
 
     position: absolute;
@@ -745,7 +1025,7 @@ body {
 
 
 /* =========================================================
-   PAPER CONTENT / SCROLL
+   PAPER CONTENT
    ========================================================= */
 
 .paper-content {
@@ -798,7 +1078,7 @@ body {
 
 
 /* =========================================================
-   HEADER
+   LETTER HEADER
    ========================================================= */
 
 .letter-header {
@@ -914,7 +1194,7 @@ body {
 
 
 /* =========================================================
-   WRITING CURSOR
+   TYPING CURSOR
    ========================================================= */
 
 .write-paragraph.typing::after {
@@ -942,7 +1222,7 @@ body {
 
 
 /* =========================================================
-   FINAL PARAGRAPH
+   FINAL LINE
    ========================================================= */
 
 .final-line {
@@ -1016,6 +1296,7 @@ body {
 @keyframes floatHeart {
 
     0% {
+
         opacity: 0;
 
         transform:
@@ -1047,6 +1328,7 @@ body {
 @keyframes fadeUp {
 
     from {
+
         opacity: 0;
 
         transform:
@@ -1054,6 +1336,7 @@ body {
     }
 
     to {
+
         opacity: 1;
 
         transform:
@@ -1066,11 +1349,13 @@ body {
 
     0%,
     100% {
+
         transform:
             translateY(0);
     }
 
     50% {
+
         transform:
             translateY(7px);
     }
@@ -1098,71 +1383,103 @@ body {
 @media (max-width: 600px) {
 
     .envelope-scene {
+
         transform: none !important;
     }
+
 
     .envelope-area {
+
         transform: none !important;
     }
 
+
     /*
-       The envelope is now completely 2D.
-       Nothing rotates the page.
+       No 3D / rotation is used.
+       The phone viewport stays completely fixed.
     */
 
     .envelope-card {
+
         transform: none !important;
     }
 
+
     .envelope-front {
+
         padding: 25px;
     }
 
+
     .front-small {
+
         font-size: 9px;
+
         letter-spacing: 2px;
     }
 
+
     .front-title {
+
         font-size: 28px;
     }
 
+
     .front-name {
+
         font-size: 16px;
     }
 
+
     .turn-instruction {
+
         bottom: -70px;
     }
 
+
     .turn-button {
+
         font-size: 13px;
     }
 
+
     .paper {
+
         width: 94vw;
+
         height: 90vh;
     }
 
+
     .paper-content {
+
         padding:
             40px 25px;
     }
 
+
     .writeup {
+
         font-size: 16px;
+
         line-height: 1.82;
     }
 
+
     .letter-header h1 {
+
         font-size: 34px;
     }
 
+
     .letter-header p {
+
         font-size: 13px;
     }
 
+
     .signature {
+
         font-size: 20px;
     }
 
@@ -1177,14 +1494,14 @@ body {
 
 
 <!-- =====================================================
-     FIXED BACKGROUND
+     BACKGROUND
      ===================================================== -->
 
 <div class="background"></div>
 
 
 <!-- =====================================================
-     ENVELOPE SCENE
+     ENVELOPE
      ===================================================== -->
 
 <div
@@ -1197,19 +1514,13 @@ body {
     >
 
 
-        <!-- =============================================
-             ENVELOPE CARD
-             ============================================= -->
-
         <div
             class="envelope-card"
             id="envelopeCard"
         >
 
 
-            <!-- =========================================
-                 FRONT
-                 ========================================= -->
+            <!-- FRONT -->
 
             <div
                 class="envelope-front"
@@ -1218,9 +1529,7 @@ body {
                 <div
                     class="front-small"
                 >
-
                     A little something for you...
-
                 </div>
 
 
@@ -1257,24 +1566,31 @@ body {
             </div>
 
 
-            <!-- =========================================
-                 BACK
-                 ========================================= -->
+            <!-- BACK -->
 
             <div
                 class="envelope-back"
-                id="envelopeBack"
-            >
+            ></div>
 
-            </div>
+
+            <!-- CENTER FOLD -->
+
+            <div
+                class="center-fold"
+            ></div>
+
+
+            <!-- MOVING SHADOW -->
+
+            <div
+                class="turn-shadow"
+            ></div>
 
 
         </div>
 
 
-        <!-- =============================================
-             TURN BUTTON
-             ============================================= -->
+        <!-- TURN INSTRUCTION -->
 
         <div
             class="turn-instruction"
@@ -1301,9 +1617,7 @@ body {
         </div>
 
 
-        <!-- =============================================
-             OPEN BUTTON
-             ============================================= -->
+        <!-- OPEN BUTTON -->
 
         <div
             class="open-button-layer"
@@ -1346,9 +1660,7 @@ body {
         >
 
 
-            <!-- =========================================
-                 LETTER HEADER
-                 ========================================= -->
+            <!-- LETTER HEADER -->
 
             <header
                 class="letter-header"
@@ -1357,32 +1669,24 @@ body {
                 <div
                     class="letter-small"
                 >
-
                     FOR MY PANDA 🐼
-
                 </div>
 
 
                 <h1>
-
                     Happiest Birthday ❤️
-
                 </h1>
 
 
                 <p>
-
                     To the amazing UX Lead,
                     Pranati Vahia aka Panda.
-
                 </p>
 
             </header>
 
 
-            <!-- =========================================
-                 WRITEUP
-                 ========================================= -->
+            <!-- WRITEUP -->
 
             <div
                 class="writeup"
@@ -1566,9 +1870,7 @@ And I love you.
             </div>
 
 
-            <!-- =========================================
-                 SIGNATURE
-                 ========================================= -->
+            <!-- SIGNATURE -->
 
             <div
                 class="signature"
@@ -1667,16 +1969,18 @@ turnButton.addEventListener(
 
         envelopeTurned = true;
 
+
         /*
-           Start the 2D paper-turn animation.
+           Start synchronized paper-fold animation.
         */
 
         envelopeCard.classList.add(
             "turning"
         );
 
+
         /*
-           Hide the instruction.
+           Hide instruction.
         */
 
         turnInstruction.style.opacity =
@@ -1687,7 +1991,8 @@ turnButton.addEventListener(
 
 
         /*
-           Wait until the back is visible.
+           Wait until back has completely
+           appeared before showing OPEN.
         */
 
         setTimeout(
@@ -1698,7 +2003,7 @@ turnButton.addEventListener(
                 );
 
             },
-            1500
+            1650
         );
 
     }
@@ -1727,10 +2032,6 @@ openButton.addEventListener(
         envelopeOpened = true;
 
 
-        /*
-           Hide OPEN button.
-        */
-
         openButtonLayer.classList.remove(
             "visible"
         );
@@ -1740,7 +2041,7 @@ openButton.addEventListener(
 
 
         /*
-           Envelope leaves.
+           Envelope disappears.
         */
 
         envelopeScene.classList.add(
@@ -1749,7 +2050,7 @@ openButton.addEventListener(
 
 
         /*
-           Unfold letter.
+           Letter unfolds.
         */
 
         setTimeout(
@@ -1765,8 +2066,7 @@ openButton.addEventListener(
 
 
         /*
-           Start writing after paper
-           has unfolded.
+           Start writing.
         */
 
         setTimeout(
@@ -1812,11 +2112,6 @@ async function startWriting() {
     }
 
 
-    /*
-       Show signature after everything
-       has been written.
-    */
-
     signature.classList.add(
         "show"
     );
@@ -1825,7 +2120,7 @@ async function startWriting() {
 
 
 /* =========================================================
-   TYPE ONE PARAGRAPH
+   TYPE PARAGRAPH
    ========================================================= */
 
 function typeParagraph(element) {
@@ -1836,8 +2131,10 @@ function typeParagraph(element) {
             const text =
                 element.dataset.text;
 
+
             element.style.visibility =
                 "visible";
+
 
             element.classList.add(
                 "typing"
@@ -1868,10 +2165,6 @@ function typeParagraph(element) {
                     text[index];
 
 
-                /*
-                   New line.
-                */
-
                 if (
                     character ===
                     "\n"
@@ -1880,9 +2173,7 @@ function typeParagraph(element) {
                     element.innerHTML +=
                         "<br>";
 
-                }
-
-                else {
+                } else {
 
                     element.textContent +=
                         character;
@@ -1894,21 +2185,24 @@ function typeParagraph(element) {
 
 
                 /*
-                   Natural writing speed.
+                   Typing speed.
                 */
 
                 let delay = 25;
 
 
                 if (
-                    character ===
-                    " "
+                    character === " "
                 ) {
 
                     delay = 8;
 
                 }
 
+
+                /*
+                   Small pauses after punctuation.
+                */
 
                 if (
                     character === "." ||
@@ -1957,7 +2251,7 @@ function sleep(ms) {
 
 
 /* =========================================================
-   FLOATING HEARTS
+   HEARTS
    ========================================================= */
 
 function createHearts() {
@@ -1988,8 +2282,10 @@ function createHearts() {
                         "div"
                     );
 
+
                 heart.className =
                     "heart";
+
 
                 heart.textContent =
                     symbols[
@@ -2000,6 +2296,7 @@ function createHearts() {
                         )
                     ];
 
+
                 heart.style.left =
                     Math.random()
                     *
@@ -2007,8 +2304,10 @@ function createHearts() {
                     +
                     "vw";
 
+
                 heart.style.bottom =
                     "-30px";
+
 
                 heart.style.fontSize =
                     (
@@ -2017,6 +2316,7 @@ function createHearts() {
                     )
                     +
                     "px";
+
 
                 heart.style.animationDuration =
                     (
@@ -2053,4 +2353,5 @@ function createHearts() {
 </script>
 
 </body>
+
 </html>
