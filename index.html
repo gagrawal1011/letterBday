@@ -2,14 +2,13 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no">
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
 <title>For Panda 🐼❤️</title>
 
@@ -17,7 +16,7 @@
 
 /* =========================================================
    RESET
-   ========================================================= */
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -28,168 +27,287 @@ html,
 body {
     margin: 0;
     padding: 0;
+
     width: 100%;
     height: 100%;
+
+    overflow: hidden;
 }
 
 body {
-    overflow: hidden;
-    font-family: Georgia, "Times New Roman", serif;
-    background: #180408;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    background: #180308;
 }
 
 
 /* =========================================================
    FIXED BACKGROUND
-   ========================================================= */
+========================================================= */
 
 .background {
     position: fixed;
+
     inset: 0;
+
     z-index: 0;
+
+    pointer-events: none;
 
     background:
         radial-gradient(
             circle at 50% 35%,
-            rgba(160, 20, 45, .42),
+            rgba(160, 20, 45, .40),
             transparent 55%
         ),
         linear-gradient(
             135deg,
-            #350811,
+            #350811 0%,
             #160307 50%,
-            #3d0b15
+            #3d0b15 100%
         );
-
-    pointer-events: none;
 }
 
-.background::after {
+
+/* =========================================================
+   SMALL DECORATIVE LIGHT
+========================================================= */
+
+.background::before {
     content: "";
+
     position: absolute;
-    inset: 0;
+
+    width: 55vw;
+    height: 55vw;
+
+    max-width: 500px;
+    max-height: 500px;
+
+    left: 50%;
+    top: 38%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
 
     background:
         radial-gradient(
-            circle at center,
-            transparent 25%,
-            rgba(0,0,0,.38) 100%
+            circle,
+            rgba(255, 120, 140, .12),
+            transparent 68%
         );
 }
 
 
 /* =========================================================
    ENVELOPE SCENE
-   ========================================================= */
+========================================================= */
 
 .envelope-scene {
     position: fixed;
+
     inset: 0;
 
     z-index: 10;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
 
-    overflow: hidden;
+    align-items: center;
+    justify-content: center;
 
     transition:
-        opacity 1s ease,
-        transform 1s ease;
+        opacity .7s ease,
+        transform .7s ease;
 }
 
 
 /* =========================================================
    ENVELOPE AREA
-   ========================================================= */
+========================================================= */
 
 .envelope-area {
     position: relative;
 
-    width: min(560px, 84vw);
+    width:
+        min(
+            560px,
+            84vw
+        );
 
     aspect-ratio: 1.55;
 }
 
 
 /* =========================================================
-   ENVELOPE CARD
-   ========================================================= */
+   ENVELOPE SHADOW
+========================================================= */
 
-.envelope-card {
+.envelope-shadow {
     position: absolute;
+
+    left: 8%;
+    right: 8%;
+
+    bottom: -25px;
+
+    height: 35px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(0,0,0,.40);
+
+    filter:
+        blur(16px);
+
+    z-index: 0;
+}
+
+
+/* =========================================================
+   ENVELOPE
+========================================================= */
+
+.envelope {
+    position: absolute;
+
     inset: 0;
+
+    z-index: 5;
 
     border-radius: 9px;
 
     overflow: hidden;
 
     box-shadow:
-        0 35px 80px rgba(0,0,0,.65);
-
-    /*
-       IMPORTANT:
-       No perspective.
-       No rotateY.
-       No preserve-3d.
-    */
-
-    transform-origin: center center;
+        0 30px 70px
+        rgba(0,0,0,.55);
 }
 
 
 /* =========================================================
-   FRONT
-   ========================================================= */
+   ENVELOPE BACK BASE
+========================================================= */
 
-.envelope-front {
+.envelope-back-base {
     position: absolute;
+
     inset: 0;
-
-    z-index: 5;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    padding: 40px;
 
     background:
         linear-gradient(
             145deg,
-            #8e0915,
-            #d51c2c 50%,
-            #760610
+            #8c0915,
+            #cf1c2b 50%,
+            #750610
         );
 
-    transform-origin: center center;
+    z-index: 1;
 }
 
 
-/* Front highlight */
+/* =========================================================
+   BACK FOLDS
+========================================================= */
 
-.envelope-front::before {
+.envelope-back-base::before,
+.envelope-back-base::after {
+
     content: "";
 
     position: absolute;
+
+    bottom: 0;
+
+    width: 70%;
+    height: 75%;
+
+    background:
+        rgba(70,0,8,.16);
+}
+
+.envelope-back-base::before {
+
+    left: 0;
+
+    clip-path:
+        polygon(
+            0 100%,
+            100% 0,
+            0 0
+        );
+}
+
+.envelope-back-base::after {
+
+    right: 0;
+
+    clip-path:
+        polygon(
+            100% 100%,
+            0 0,
+            100% 0
+        );
+}
+
+
+/* =========================================================
+   FRONT ENVELOPE
+========================================================= */
+
+.envelope-front {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 10;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #900914,
+            #d21d2d 50%,
+            #760610
+        );
+}
+
+
+/* =========================================================
+   FRONT LIGHT
+========================================================= */
+
+.envelope-front::before {
+
+    content: "";
+
+    position: absolute;
+
     inset: 0;
 
     background:
         radial-gradient(
-            circle at 50% 20%,
+            circle at 50% 15%,
             rgba(255,255,255,.16),
             transparent 55%
         );
+
+    pointer-events: none;
 }
 
 
-/* Front folds */
+/* =========================================================
+   FRONT LOWER FOLD
+========================================================= */
 
 .envelope-front::after {
+
     content: "";
 
     position: absolute;
@@ -201,56 +319,73 @@ body {
     height: 58%;
 
     background:
-
         linear-gradient(
             135deg,
             transparent 49.5%,
-            rgba(70,0,8,.40) 50%,
+            rgba(70,0,8,.38) 50%,
             transparent 50.5%
         ),
-
         linear-gradient(
             225deg,
             transparent 49.5%,
-            rgba(70,0,8,.40) 50%,
+            rgba(70,0,8,.38) 50%,
             transparent 50.5%
         );
+
+    pointer-events: none;
 }
 
 
 /* =========================================================
-   FRONT TEXT
-   ========================================================= */
+   FRONT CONTENT
+========================================================= */
+
+.front-content {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 20;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
 
 .front-small {
-    position: relative;
-    z-index: 10;
 
-    margin-bottom: 18px;
+    margin-bottom: 15px;
+
+    color:
+        rgba(255,255,255,.78);
 
     font-size: 12px;
 
     letter-spacing: 4px;
 
     text-transform: uppercase;
-
-    color: white;
-
-    opacity: .78;
 }
 
 
 .front-title {
-    position: relative;
-    z-index: 10;
 
     color: white;
 
     font-size:
         clamp(
-            28px,
+            27px,
             5vw,
-            52px
+            50px
         );
 
     line-height: 1.12;
@@ -258,24 +393,26 @@ body {
     font-weight: 500;
 
     text-shadow:
-        0 5px 25px
-        rgba(0,0,0,.35);
+        0 5px 20px
+        rgba(0,0,0,.30);
 }
 
 
 .front-title span {
-    color: #ffd0d0;
+
+    color:
+        #ffd0d0;
+
     font-style: italic;
 }
 
 
 .front-name {
-    position: relative;
-    z-index: 10;
 
-    margin-top: 18px;
+    margin-top: 17px;
 
-    color: #fff2f2;
+    color:
+        #fff1f1;
 
     font-size:
         clamp(
@@ -287,465 +424,403 @@ body {
 
 
 .panda {
-    font-size: 28px;
+
+    font-size: 27px;
 }
 
 
 /* =========================================================
-   CENTER FOLD
-   ========================================================= */
+   TWO FOLDING HALVES
 
-.center-fold {
+   THESE ARE THE IMPORTANT PART.
+
+   Instead of transforming the complete envelope,
+   we divide the FRONT into LEFT and RIGHT pieces.
+========================================================= */
+
+.fold-left,
+.fold-right {
+
     position: absolute;
 
     top: 0;
     bottom: 0;
 
+    width: 50%;
+
+    z-index: 30;
+
+    background:
+        linear-gradient(
+            145deg,
+            #900914,
+            #d21d2d 50%,
+            #760610
+        );
+
+    overflow: hidden;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        opacity;
+}
+
+
+/* LEFT */
+
+.fold-left {
+
+    left: 0;
+
+    border-radius:
+        9px 0 0 9px;
+}
+
+
+/* RIGHT */
+
+.fold-right {
+
+    right: 0;
+
+    border-radius:
+        0 9px 9px 0;
+}
+
+
+/* =========================================================
+   FOLD HALF SHADING
+========================================================= */
+
+.fold-left::after,
+.fold-right::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+
+.fold-left::after {
+
+    background:
+        linear-gradient(
+            to right,
+            transparent 55%,
+            rgba(0,0,0,.20)
+        );
+}
+
+
+.fold-right::after {
+
+    background:
+        linear-gradient(
+            to left,
+            transparent 55%,
+            rgba(0,0,0,.20)
+        );
+}
+
+
+/* =========================================================
+   FOLD CENTER SEAM
+========================================================= */
+
+.fold-seam {
+
+    position: absolute;
+
     left: 50%;
 
-    width: 3px;
+    top: 0;
+    bottom: 0;
 
-    z-index: 50;
+    width: 2px;
+
+    z-index: 60;
 
     transform:
-        translateX(-50%)
-        scaleY(0);
-
-    opacity: 0;
+        translateX(-50%);
 
     background:
         linear-gradient(
             to bottom,
             transparent,
-            rgba(255,255,255,.30),
-            rgba(80,0,8,.45),
-            rgba(255,255,255,.18),
+            rgba(255,255,255,.25),
+            rgba(70,0,8,.45),
+            rgba(255,255,255,.20),
             transparent
         );
 
-    box-shadow:
-        0 0 15px
-        rgba(0,0,0,.3);
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   BACK
-   ========================================================= */
-
-.envelope-back {
-    position: absolute;
-    inset: 0;
-
-    z-index: 2;
-
-    background:
-        linear-gradient(
-            145deg,
-            #8c0915,
-            #ce1c2b 50%,
-            #750610
-        );
-
     opacity: 0;
-
-    transform:
-        scaleX(.02);
-
-    transform-origin: center center;
-
-    pointer-events: none;
-}
-
-
-/* Back folds */
-
-.envelope-back::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            transparent 49.5%,
-            rgba(70,0,8,.38) 50%,
-            transparent 50.5%
-        ),
-
-        linear-gradient(
-            225deg,
-            transparent 49.5%,
-            rgba(70,0,8,.38) 50%,
-            transparent 50.5%
-        );
 }
 
 
 /* =========================================================
-   TURN SHADOW
-   ========================================================= */
+   TURN ANIMATION
+========================================================= */
 
-.turn-shadow {
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 60;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(0,0,0,.30) 48%,
-            rgba(255,255,255,.08) 50%,
-            rgba(0,0,0,.30) 52%,
-            transparent 100%
-        );
-
-    mix-blend-mode: multiply;
-}
-
-
-/* =========================================================
-   SMOOTH TURN ANIMATION
-   ========================================================= */
-
-/*
-   FRONT
-
-   Instead of disappearing instantly, the envelope
-   compresses toward its centre while slightly moving
-   vertically. This gives the impression of paper folding.
-*/
-
-.envelope-card.turning .envelope-front {
+.envelope.turning .fold-left {
 
     animation:
-        paperFrontFold
-        1.45s
+        foldLeft
+        1.25s
         cubic-bezier(
-            .76,
-            0,
-            .18,
+            .22,
+            .75,
+            .20,
             1
         )
         forwards;
 }
 
 
-@keyframes paperFrontFold {
-
-    0% {
-        transform:
-            scaleX(1)
-            scaleY(1)
-            translateX(0);
-
-        opacity: 1;
-
-        filter:
-            brightness(1);
-    }
-
-    18% {
-        transform:
-            scaleX(.94)
-            scaleY(.995)
-            translateX(-1%);
-
-        opacity: 1;
-
-        filter:
-            brightness(.98);
-    }
-
-    38% {
-        transform:
-            scaleX(.72)
-            scaleY(.985)
-            translateX(-2%);
-
-        opacity: 1;
-
-        filter:
-            brightness(.94);
-    }
-
-    56% {
-        transform:
-            scaleX(.43)
-            scaleY(.96)
-            translateX(-2%);
-
-        opacity: .92;
-
-        filter:
-            brightness(.86);
-    }
-
-    72% {
-        transform:
-            scaleX(.18)
-            scaleY(.93)
-            translateX(-1%);
-
-        opacity: .50;
-
-        filter:
-            brightness(.75);
-    }
-
-    84% {
-        transform:
-            scaleX(.055)
-            scaleY(.90)
-            translateX(0);
-
-        opacity: 0;
-
-        filter:
-            brightness(.65);
-    }
-
-    100% {
-        transform:
-            scaleX(.02)
-            scaleY(.88)
-            translateX(0);
-
-        opacity: 0;
-    }
-}
-
-
-/* =========================================================
-   BACK REVEAL
-   ========================================================= */
-
-.envelope-card.turning .envelope-back {
+.envelope.turning .fold-right {
 
     animation:
-        paperBackReveal
-        1.45s
-        .15s
+        foldRight
+        1.25s
         cubic-bezier(
-            .76,
-            0,
-            .18,
+            .22,
+            .75,
+            .20,
             1
         )
         forwards;
 }
 
 
-@keyframes paperBackReveal {
-
-    0% {
-        transform:
-            scaleX(.02)
-            scaleY(.88);
-
-        opacity: 0;
-    }
-
-    18% {
-        transform:
-            scaleX(.08)
-            scaleY(.90);
-
-        opacity: .05;
-    }
-
-    35% {
-        transform:
-            scaleX(.25)
-            scaleY(.94);
-
-        opacity: .18;
-    }
-
-    52% {
-        transform:
-            scaleX(.48)
-            scaleY(.97);
-
-        opacity: .48;
-    }
-
-    68% {
-        transform:
-            scaleX(.72)
-            scaleY(.985);
-
-        opacity: .82;
-    }
-
-    84% {
-        transform:
-            scaleX(.92)
-            scaleY(.995);
-
-        opacity: 1;
-    }
-
-    100% {
-        transform:
-            scaleX(1)
-            scaleY(1);
-
-        opacity: 1;
-    }
-}
-
-
-/* =========================================================
-   CENTER FOLD ANIMATION
-   ========================================================= */
-
-.envelope-card.turning .center-fold {
+.envelope.turning .fold-seam {
 
     animation:
-        centerFoldAnimation
-        1.45s
+        seamAnimation
+        1.25s
         ease
         forwards;
 }
 
 
-@keyframes centerFoldAnimation {
+/* =========================================================
+   LEFT FOLD
+
+   Compresses towards the center.
+========================================================= */
+
+@keyframes foldLeft {
 
     0% {
-        opacity: 0;
+
         transform:
-            translateX(-50%)
-            scaleY(0);
+            translateX(0)
+            scaleX(1);
+
+        opacity: 1;
     }
 
-    25% {
-        opacity: .35;
+    22% {
+
         transform:
-            translateX(-50%)
-            scaleY(.35);
+            translateX(4%)
+            scaleX(.82);
+
+        opacity: 1;
     }
 
-    48% {
-        opacity: .75;
+    45% {
+
         transform:
-            translateX(-50%)
-            scaleY(.72);
+            translateX(12%)
+            scaleX(.58);
+
+        opacity: 1;
     }
 
     65% {
-        opacity: .4;
+
         transform:
-            translateX(-50%)
-            scaleY(1);
+            translateX(18%)
+            scaleX(.32);
+
+        opacity: .85;
+    }
+
+    82% {
+
+        transform:
+            translateX(24%)
+            scaleX(.12);
+
+        opacity: .35;
     }
 
     100% {
-        opacity: 0;
+
         transform:
-            translateX(-50%)
-            scaleY(1);
+            translateX(25%)
+            scaleX(.01);
+
+        opacity: 0;
     }
 }
 
 
 /* =========================================================
-   SHADOW ANIMATION
-   ========================================================= */
+   RIGHT FOLD
+========================================================= */
 
-.envelope-card.turning .turn-shadow {
+@keyframes foldRight {
 
-    animation:
-        movingShadow
-        1.45s
-        ease
-        forwards;
+    0% {
+
+        transform:
+            translateX(0)
+            scaleX(1);
+
+        opacity: 1;
+    }
+
+    22% {
+
+        transform:
+            translateX(-4%)
+            scaleX(.82);
+
+        opacity: 1;
+    }
+
+    45% {
+
+        transform:
+            translateX(-12%)
+            scaleX(.58);
+
+        opacity: 1;
+    }
+
+    65% {
+
+        transform:
+            translateX(-18%)
+            scaleX(.32);
+
+        opacity: .85;
+    }
+
+    82% {
+
+        transform:
+            translateX(-24%)
+            scaleX(.12);
+
+        opacity: .35;
+    }
+
+    100% {
+
+        transform:
+            translateX(-25%)
+            scaleX(.01);
+
+        opacity: 0;
+    }
 }
 
 
-@keyframes movingShadow {
+/* =========================================================
+   SEAM
+========================================================= */
+
+@keyframes seamAnimation {
 
     0% {
+
         opacity: 0;
+
         transform:
-            translateX(-100%);
+            translateX(-50%)
+            scaleY(.2);
     }
 
     30% {
-        opacity: .15;
-        transform:
-            translateX(-30%);
-    }
 
-    50% {
         opacity: .35;
+
         transform:
-            translateX(0);
+            translateX(-50%)
+            scaleY(.55);
     }
 
-    70% {
-        opacity: .15;
+    55% {
+
+        opacity: .75;
+
         transform:
-            translateX(30%);
+            translateX(-50%)
+            scaleY(1);
+    }
+
+    75% {
+
+        opacity: .30;
     }
 
     100% {
+
         opacity: 0;
-        transform:
-            translateX(100%);
     }
 }
 
 
 /* =========================================================
-   TURN BUTTON
-   ========================================================= */
+   TURN INSTRUCTION
+========================================================= */
 
 .turn-instruction {
+
     position: absolute;
 
     left: 50%;
-    bottom: -78px;
+
+    bottom: -80px;
 
     z-index: 100;
+
+    width: 100%;
 
     transform:
         translateX(-50%);
 
-    width: 100%;
-
     text-align: center;
 
     transition:
-        opacity .5s ease;
+        opacity .4s ease;
 }
 
 
 .turn-button {
 
-    border: none;
+    border: 0;
 
-    background: transparent;
+    background:
+        transparent;
 
     color:
         rgba(255,235,235,.95);
 
-    font-family: inherit;
+    font-family:
+        Georgia,
+        serif;
 
     font-size: 15px;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1.3px;
 
     cursor: pointer;
 
@@ -754,30 +829,39 @@ body {
 }
 
 
-.turn-button:active {
-    transform:
-        scale(.96);
-}
-
-
 .turn-arrow {
 
     display: block;
 
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 
-    font-size: 25px;
+    font-size: 24px;
 
     animation:
-        bounce
+        arrowBounce
         1.8s
         infinite;
 }
 
 
+@keyframes arrowBounce {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(6px);
+    }
+}
+
+
 /* =========================================================
    OPEN BUTTON
-   ========================================================= */
+========================================================= */
 
 .open-button-layer {
 
@@ -786,7 +870,7 @@ body {
     left: 50%;
     top: 50%;
 
-    z-index: 200;
+    z-index: 150;
 
     transform:
         translate(-50%, -50%);
@@ -810,29 +894,25 @@ body {
 
 .open-button {
 
-    border:
-        1px solid
-        rgba(255,255,255,.85);
+    min-width: 140px;
+
+    padding:
+        14px 35px;
 
     border-radius: 50px;
 
-    padding:
-        14px 38px;
-
-    min-width: 135px;
+    border:
+        1px solid
+        rgba(255,255,255,.80);
 
     background:
-        rgba(255,255,255,.17);
-
-    backdrop-filter:
-        blur(10px);
-
-    -webkit-backdrop-filter:
-        blur(10px);
+        rgba(255,255,255,.16);
 
     color: white;
 
-    font-family: inherit;
+    font-family:
+        Georgia,
+        serif;
 
     font-size: 15px;
 
@@ -840,25 +920,23 @@ body {
 
     cursor: pointer;
 
-    outline: none;
+    transition:
+        transform .2s ease,
+        background .2s ease;
 
     box-shadow:
-        0 8px 30px
-        rgba(0,0,0,.25);
-
-    transition:
-        transform .25s ease,
-        background .25s ease;
+        0 8px 25px
+        rgba(0,0,0,.20);
 }
 
 
 .open-button:hover {
 
     background:
-        rgba(255,255,255,.32);
+        rgba(255,255,255,.28);
 
     transform:
-        scale(1.07);
+        scale(1.05);
 }
 
 
@@ -870,24 +948,24 @@ body {
 
 
 /* =========================================================
-   ENVELOPE LEAVES
-   ========================================================= */
+   ENVELOPE EXIT
+========================================================= */
 
 .envelope-scene.opening {
 
     opacity: 0;
 
     transform:
-        scale(.72)
-        translateY(30px);
+        scale(.90)
+        translateY(20px);
 
     pointer-events: none;
 }
 
 
 /* =========================================================
-   LETTER
-   ========================================================= */
+   LETTER SCENE
+========================================================= */
 
 .paper-scene {
 
@@ -895,17 +973,20 @@ body {
 
     inset: 0;
 
-    z-index: 30;
+    z-index: 20;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     pointer-events: none;
 }
 
+
+/* =========================================================
+   PAPER
+========================================================= */
 
 .paper {
 
@@ -923,29 +1004,27 @@ body {
             82vh
         );
 
-    overflow: hidden;
-
     background:
         linear-gradient(
             145deg,
-            #fffdf2,
+            #fffdf3,
             #fff7dc
         );
 
     box-shadow:
-        0 35px 100px
-        rgba(0,0,0,.65);
+        0 30px 90px
+        rgba(0,0,0,.60);
 
     opacity: 0;
 
     transform:
         translateY(180px)
-        scaleY(.05);
+        scaleY(.04);
 
     transform-origin:
         bottom center;
 
-    pointer-events: auto;
+    overflow: hidden;
 }
 
 
@@ -953,7 +1032,7 @@ body {
 
     animation:
         paperUnfold
-        1.6s
+        1.35s
         cubic-bezier(
             .16,
             1,
@@ -972,7 +1051,7 @@ body {
 
         transform:
             translateY(180px)
-            scaleY(.05);
+            scaleY(.04);
     }
 
     30% {
@@ -980,15 +1059,15 @@ body {
         opacity: 1;
 
         transform:
-            translateY(90px)
-            scaleY(.25);
+            translateY(85px)
+            scaleY(.28);
     }
 
     60% {
 
         transform:
-            translateY(35px)
-            scaleY(.70);
+            translateY(30px)
+            scaleY(.72);
     }
 
     100% {
@@ -1004,7 +1083,7 @@ body {
 
 /* =========================================================
    PAPER BORDER
-   ========================================================= */
+========================================================= */
 
 .paper::before {
 
@@ -1014,7 +1093,7 @@ body {
 
     inset: 11px;
 
-    z-index: 10;
+    z-index: 30;
 
     border:
         1px solid
@@ -1026,7 +1105,7 @@ body {
 
 /* =========================================================
    PAPER CONTENT
-   ========================================================= */
+========================================================= */
 
 .paper-content {
 
@@ -1041,20 +1120,20 @@ body {
     overflow-x: hidden;
 
     padding:
-        48px
+        45px
         clamp(
-            30px,
+            27px,
             7vw,
             70px
         );
-
-    color:
-        #38251f;
 
     -webkit-overflow-scrolling:
         touch;
 
     scrollbar-width: thin;
+
+    color:
+        #38251f;
 }
 
 
@@ -1064,14 +1143,16 @@ body {
 
 
 .paper-content::-webkit-scrollbar-track {
+
     background:
-        rgba(120,70,45,.08);
+        rgba(120,70,45,.07);
 }
 
 
 .paper-content::-webkit-scrollbar-thumb {
+
     background:
-        rgba(120,70,45,.35);
+        rgba(120,70,45,.32);
 
     border-radius: 10px;
 }
@@ -1079,13 +1160,13 @@ body {
 
 /* =========================================================
    LETTER HEADER
-   ========================================================= */
+========================================================= */
 
 .letter-header {
 
     text-align: center;
 
-    margin-bottom: 38px;
+    margin-bottom: 35px;
 
     opacity: 0;
 }
@@ -1096,13 +1177,16 @@ body {
 
     animation:
         fadeUp
-        1s
-        .2s
+        .9s
+        .15s
         forwards;
 }
 
 
 .letter-small {
+
+    color:
+        #8c5746;
 
     font-family:
         "Courier New",
@@ -1111,9 +1195,6 @@ body {
     font-size: 10px;
 
     letter-spacing: 4px;
-
-    color:
-        #8c5746;
 
     margin-bottom: 12px;
 }
@@ -1143,26 +1224,23 @@ body {
 
     margin-top: 10px;
 
-    font-size: 15px;
-
     color:
         #765045;
+
+    font-size: 15px;
 }
 
 
 /* =========================================================
    WRITEUP
-   ========================================================= */
+========================================================= */
 
 .writeup {
 
-    position: relative;
-
-    z-index: 20;
-
     max-width: 650px;
 
-    margin: auto;
+    margin:
+        0 auto;
 
     font-family:
         "Segoe Print",
@@ -1180,14 +1258,15 @@ body {
     line-height:
         1.82;
 
-    letter-spacing:
-        .05px;
+    color:
+        #38251f;
 }
 
 
 .write-paragraph {
 
-    margin-bottom: 24px;
+    margin:
+        0 0 24px 0;
 
     visibility: hidden;
 }
@@ -1195,7 +1274,7 @@ body {
 
 /* =========================================================
    TYPING CURSOR
-   ========================================================= */
+========================================================= */
 
 .write-paragraph.typing::after {
 
@@ -1205,7 +1284,7 @@ body {
 
     width: 2px;
 
-    height: 1.15em;
+    height: 1.1em;
 
     margin-left: 3px;
 
@@ -1215,154 +1294,13 @@ body {
         #801d2a;
 
     animation:
-        cursorBlink
-        .7s
+        blink
+        .65s
         infinite;
 }
 
 
-/* =========================================================
-   FINAL LINE
-   ========================================================= */
-
-.final-line {
-
-    margin-top: 30px;
-
-    color:
-        #801d2a;
-
-    font-size: 20px;
-}
-
-
-/* =========================================================
-   SIGNATURE
-   ========================================================= */
-
-.signature {
-
-    margin-top: 35px;
-
-    padding-bottom: 50px;
-
-    text-align: right;
-
-    font-family:
-        "Segoe Print",
-        "Bradley Hand",
-        cursive;
-
-    font-size: 23px;
-
-    line-height: 1.7;
-
-    color:
-        #801d2a;
-
-    opacity: 0;
-}
-
-
-.signature.show {
-
-    animation:
-        fadeUp
-        1.2s
-        forwards;
-}
-
-
-/* =========================================================
-   FLOATING HEARTS
-   ========================================================= */
-
-.heart {
-
-    position: fixed;
-
-    z-index: 200;
-
-    pointer-events: none;
-
-    animation:
-        floatHeart
-        5s
-        linear
-        forwards;
-}
-
-
-@keyframes floatHeart {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            translateY(30px)
-            scale(.5)
-            rotate(0deg);
-    }
-
-    15% {
-        opacity: 1;
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            translateY(-100vh)
-            scale(1.3)
-            rotate(25deg);
-    }
-}
-
-
-/* =========================================================
-   GENERAL ANIMATIONS
-   ========================================================= */
-
-@keyframes fadeUp {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(25px);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-@keyframes bounce {
-
-    0%,
-    100% {
-
-        transform:
-            translateY(0);
-    }
-
-    50% {
-
-        transform:
-            translateY(7px);
-    }
-}
-
-
-@keyframes cursorBlink {
+@keyframes blink {
 
     0%,
     45% {
@@ -1377,37 +1315,144 @@ body {
 
 
 /* =========================================================
+   FINAL PARAGRAPH
+========================================================= */
+
+.final-line {
+
+    color:
+        #801d2a;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   SIGNATURE
+========================================================= */
+
+.signature {
+
+    max-width: 650px;
+
+    margin:
+        30px auto 0;
+
+    padding-bottom: 55px;
+
+    text-align: right;
+
+    color:
+        #801d2a;
+
+    font-family:
+        "Segoe Print",
+        "Bradley Hand",
+        cursive;
+
+    font-size: 22px;
+
+    line-height: 1.7;
+
+    opacity: 0;
+}
+
+
+.signature.show {
+
+    animation:
+        fadeUp
+        1s
+        forwards;
+}
+
+
+/* =========================================================
+   FLOATING HEARTS
+========================================================= */
+
+.heart {
+
+    position: fixed;
+
+    z-index: 500;
+
+    pointer-events: none;
+
+    animation:
+        heartFloat
+        5s
+        linear
+        forwards;
+}
+
+
+@keyframes heartFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(.5);
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translateY(-100vh)
+            scale(1.25)
+            rotate(20deg);
+    }
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
    MOBILE
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 600px) {
 
-    .envelope-scene {
-
-        transform: none !important;
-    }
-
-
     .envelope-area {
 
-        transform: none !important;
+        width: 86vw;
     }
 
 
-    /*
-       No 3D / rotation is used.
-       The phone viewport stays completely fixed.
-    */
+    .front-content {
 
-    .envelope-card {
-
-        transform: none !important;
-    }
-
-
-    .envelope-front {
-
-        padding: 25px;
+        padding: 20px;
     }
 
 
@@ -1421,7 +1466,7 @@ body {
 
     .front-title {
 
-        font-size: 28px;
+        font-size: 27px;
     }
 
 
@@ -1433,7 +1478,7 @@ body {
 
     .turn-instruction {
 
-        bottom: -70px;
+        bottom: -75px;
     }
 
 
@@ -1454,7 +1499,19 @@ body {
     .paper-content {
 
         padding:
-            40px 25px;
+            38px 24px;
+    }
+
+
+    .letter-header h1 {
+
+        font-size: 33px;
+    }
+
+
+    .letter-header p {
+
+        font-size: 13px;
     }
 
 
@@ -1466,18 +1523,6 @@ body {
     }
 
 
-    .letter-header h1 {
-
-        font-size: 34px;
-    }
-
-
-    .letter-header p {
-
-        font-size: 13px;
-    }
-
-
     .signature {
 
         font-size: 20px;
@@ -1486,7 +1531,6 @@ body {
 }
 
 </style>
-
 </head>
 
 
@@ -1494,15 +1538,15 @@ body {
 
 
 <!-- =====================================================
-     BACKGROUND
-     ===================================================== -->
+     FIXED BACKGROUND
+===================================================== -->
 
 <div class="background"></div>
 
 
 <!-- =====================================================
      ENVELOPE
-     ===================================================== -->
+===================================================== -->
 
 <div
     class="envelope-scene"
@@ -1513,11 +1557,22 @@ body {
         class="envelope-area"
     >
 
+        <div
+            class="envelope-shadow"
+        ></div>
+
 
         <div
-            class="envelope-card"
-            id="envelopeCard"
+            class="envelope"
+            id="envelope"
         >
+
+
+            <!-- BACK -->
+
+            <div
+                class="envelope-back-base"
+            ></div>
 
 
             <!-- FRONT -->
@@ -1527,70 +1582,82 @@ body {
             >
 
                 <div
-                    class="front-small"
-                >
-                    A little something for you...
-                </div>
-
-
-                <div
-                    class="front-title"
+                    class="front-content"
                 >
 
-                    Happiest Birthday<br>
-
-                    to the amazing
-
-                    <span>
-                        UX Lead
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="front-name"
-                >
-
-                    Pranati Vahia
-                    aka Panda
-
-                    <span
-                        class="panda"
+                    <div
+                        class="front-small"
                     >
-                        🐼❤️
-                    </span>
+                        A little something for you...
+                    </div>
+
+
+                    <div
+                        class="front-title"
+                    >
+
+                        Happiest Birthday<br>
+
+                        to the amazing
+
+                        <span>
+                            UX Lead
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="front-name"
+                    >
+
+                        Pranati Vahia
+                        aka Panda
+
+                        <span
+                            class="panda"
+                        >
+                            🐼❤️
+                        </span>
+
+                    </div>
 
                 </div>
 
             </div>
 
 
-            <!-- BACK -->
+            <!-- =================================================
+                 LEFT FOLD
+            ================================================== -->
 
             <div
-                class="envelope-back"
+                class="fold-left"
             ></div>
 
 
-            <!-- CENTER FOLD -->
+            <!-- =================================================
+                 RIGHT FOLD
+            ================================================== -->
 
             <div
-                class="center-fold"
+                class="fold-right"
             ></div>
 
 
-            <!-- MOVING SHADOW -->
+            <!-- CENTER SEAM -->
 
             <div
-                class="turn-shadow"
+                class="fold-seam"
             ></div>
 
 
         </div>
 
 
-        <!-- TURN INSTRUCTION -->
+        <!-- =================================================
+             TURN BUTTON
+        ================================================== -->
 
         <div
             class="turn-instruction"
@@ -1617,7 +1684,9 @@ body {
         </div>
 
 
-        <!-- OPEN BUTTON -->
+        <!-- =================================================
+             OPEN BUTTON
+        ================================================== -->
 
         <div
             class="open-button-layer"
@@ -1629,9 +1698,7 @@ body {
                 class="open-button"
                 id="openButton"
             >
-
                 OPEN
-
             </button>
 
         </div>
@@ -1644,7 +1711,7 @@ body {
 
 <!-- =====================================================
      LETTER
-     ===================================================== -->
+===================================================== -->
 
 <div
     class="paper-scene"
@@ -1660,7 +1727,7 @@ body {
         >
 
 
-            <!-- LETTER HEADER -->
+            <!-- HEADER -->
 
             <header
                 class="letter-header"
@@ -1686,7 +1753,9 @@ body {
             </header>
 
 
-            <!-- WRITEUP -->
+            <!-- =================================================
+                 WRITEUP
+            ================================================== -->
 
             <div
                 class="writeup"
@@ -1870,7 +1939,9 @@ And I love you.
             </div>
 
 
-            <!-- SIGNATURE -->
+            <!-- =================================================
+                 SIGNATURE
+            ================================================== -->
 
             <div
                 class="signature"
@@ -1899,16 +1970,21 @@ And I love you.
 
 /* =========================================================
    ELEMENTS
-   ========================================================= */
+========================================================= */
 
-const envelopeCard =
+const envelope =
     document.getElementById(
-        "envelopeCard"
+        "envelope"
     );
 
 const turnButton =
     document.getElementById(
         "turnButton"
+    );
+
+const turnInstruction =
+    document.getElementById(
+        "turnInstruction"
     );
 
 const openButton =
@@ -1924,11 +2000,6 @@ const openButtonLayer =
 const envelopeScene =
     document.getElementById(
         "envelopeScene"
-    );
-
-const turnInstruction =
-    document.getElementById(
-        "turnInstruction"
     );
 
 const paper =
@@ -1954,33 +2025,36 @@ let envelopeOpened = false;
 
 /* =========================================================
    TURN ENVELOPE
-   ========================================================= */
+========================================================= */
 
 turnButton.addEventListener(
     "click",
     function(event) {
 
         event.preventDefault();
+
         event.stopPropagation();
+
 
         if (envelopeTurned) {
             return;
         }
 
+
         envelopeTurned = true;
 
 
         /*
-           Start synchronized paper-fold animation.
+           Start lightweight fold.
         */
 
-        envelopeCard.classList.add(
+        envelope.classList.add(
             "turning"
         );
 
 
         /*
-           Hide instruction.
+           Remove instruction.
         */
 
         turnInstruction.style.opacity =
@@ -1991,8 +2065,8 @@ turnButton.addEventListener(
 
 
         /*
-           Wait until back has completely
-           appeared before showing OPEN.
+           OPEN appears after
+           animation has completely finished.
         */
 
         setTimeout(
@@ -2003,7 +2077,7 @@ turnButton.addEventListener(
                 );
 
             },
-            1650
+            1400
         );
 
     }
@@ -2012,36 +2086,39 @@ turnButton.addEventListener(
 
 /* =========================================================
    OPEN ENVELOPE
-   ========================================================= */
+========================================================= */
 
 openButton.addEventListener(
     "click",
     function(event) {
 
         event.preventDefault();
+
         event.stopPropagation();
 
-        if (!envelopeTurned) {
+
+        if (
+            !envelopeTurned ||
+            envelopeOpened
+        ) {
             return;
         }
 
-        if (envelopeOpened) {
-            return;
-        }
 
         envelopeOpened = true;
 
+
+        /*
+           Hide OPEN.
+        */
 
         openButtonLayer.classList.remove(
             "visible"
         );
 
-        openButtonLayer.style.pointerEvents =
-            "none";
-
 
         /*
-           Envelope disappears.
+           Envelope exits.
         */
 
         envelopeScene.classList.add(
@@ -2050,7 +2127,7 @@ openButton.addEventListener(
 
 
         /*
-           Letter unfolds.
+           Paper starts unfolding.
         */
 
         setTimeout(
@@ -2061,12 +2138,12 @@ openButton.addEventListener(
                 );
 
             },
-            450
+            350
         );
 
 
         /*
-           Start writing.
+           Start writing after paper opens.
         */
 
         setTimeout(
@@ -2076,12 +2153,14 @@ openButton.addEventListener(
                     "writing"
                 );
 
+
                 startWriting();
+
 
                 createHearts();
 
             },
-            2000
+            1700
         );
 
     }
@@ -2089,12 +2168,12 @@ openButton.addEventListener(
 
 
 /* =========================================================
-   WRITING ANIMATION
-   ========================================================= */
+   WRITING
+========================================================= */
 
 async function startWriting() {
 
-    await sleep(700);
+    await sleep(650);
 
 
     for (
@@ -2107,7 +2186,8 @@ async function startWriting() {
             paragraphs[i]
         );
 
-        await sleep(650);
+
+        await sleep(550);
 
     }
 
@@ -2121,7 +2201,7 @@ async function startWriting() {
 
 /* =========================================================
    TYPE PARAGRAPH
-   ========================================================= */
+========================================================= */
 
 function typeParagraph(element) {
 
@@ -2155,6 +2235,7 @@ function typeParagraph(element) {
                         "typing"
                     );
 
+
                     resolve();
 
                     return;
@@ -2175,8 +2256,16 @@ function typeParagraph(element) {
 
                 } else {
 
-                    element.textContent +=
-                        character;
+                    /*
+                       textContent prevents
+                       accidental HTML injection.
+                    */
+
+                    element.appendChild(
+                        document.createTextNode(
+                            character
+                        )
+                    );
 
                 }
 
@@ -2185,34 +2274,46 @@ function typeParagraph(element) {
 
 
                 /*
-                   Typing speed.
+                   Normal writing speed.
                 */
 
-                let delay = 25;
+                let delay = 24;
 
+
+                /*
+                   Spaces are quicker.
+                */
 
                 if (
                     character === " "
                 ) {
 
-                    delay = 8;
+                    delay = 7;
 
                 }
 
 
                 /*
-                   Small pauses after punctuation.
+                   Natural pause after punctuation.
                 */
 
                 if (
                     character === "." ||
-                    character === "," ||
                     character === "!" ||
                     character === "?" ||
+                    character === ","
+                ) {
+
+                    delay = 115;
+
+                }
+
+
+                if (
                     character === "—"
                 ) {
 
-                    delay = 130;
+                    delay = 90;
 
                 }
 
@@ -2235,16 +2336,19 @@ function typeParagraph(element) {
 
 /* =========================================================
    SLEEP
-   ========================================================= */
+========================================================= */
 
 function sleep(ms) {
 
     return new Promise(
-        resolve =>
+        function(resolve) {
+
             setTimeout(
                 resolve,
                 ms
-            )
+            );
+
+        }
     );
 
 }
@@ -2252,25 +2356,23 @@ function sleep(ms) {
 
 /* =========================================================
    HEARTS
-   ========================================================= */
+========================================================= */
 
 function createHearts() {
 
     const symbols = [
-
         "❤️",
         "💕",
         "💗",
         "✨",
         "🌸",
         "🐼"
-
     ];
 
 
     for (
         let i = 0;
-        i < 18;
+        i < 16;
         i++
     ) {
 
@@ -2290,29 +2392,29 @@ function createHearts() {
                 heart.textContent =
                     symbols[
                         Math.floor(
-                            Math.random()
-                            *
+                            Math.random() *
                             symbols.length
                         )
                     ];
 
 
                 heart.style.left =
-                    Math.random()
-                    *
-                    100
+                    (
+                        Math.random() *
+                        100
+                    )
                     +
                     "vw";
 
 
                 heart.style.bottom =
-                    "-30px";
+                    "-25px";
 
 
                 heart.style.fontSize =
                     (
                         14 +
-                        Math.random() * 18
+                        Math.random() * 16
                     )
                     +
                     "px";
@@ -2321,7 +2423,7 @@ function createHearts() {
                 heart.style.animationDuration =
                     (
                         4 +
-                        Math.random() * 3
+                        Math.random() * 2
                     )
                     +
                     "s";
